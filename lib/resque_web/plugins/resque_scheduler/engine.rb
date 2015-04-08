@@ -10,6 +10,7 @@ module ResqueWeb
         paths['app/helpers'] << 'app/helpers'
         paths['app/views'] << 'app/views'
         paths['app/controllers'] << 'app/controllers'
+        paths['app/models'] << 'app/models'
       end
 
       Engine.routes do

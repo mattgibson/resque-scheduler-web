@@ -39254,3 +39254,983 @@ Processing by ResqueWeb::OverviewController#show as HTML
   Rendered /Users/matt/.rvm/gems/ruby-2.1.2/gems/resque-web-0.0.6/app/views/resque_web/overview/show.html.erb within layouts/resque_web/application (2.0ms)
 Completed 200 OK in 43ms (Views: 42.8ms | ActiveRecord: 0.0ms)
   [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.3ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.7ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::CancelNowTest: test_redirects_to_overview
+------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/cancel_now" for 127.0.0.1 at 2015-04-08 18:04:57 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#cancel_now as HTML
+Redirected to http://www.example.com/resque_web/scheduler/delayed
+Completed 302 Found in 5ms (ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+----------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::RequeueTest: test_job_with_params
+----------------------------------------------------------------------
+Started POST "/resque_web/scheduler/schedule/requeue" for 127.0.0.1 at 2015-04-08 18:04:57 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::SchedulesController#requeue as HTML
+  Parameters: {"job_name"=>"job_with_params"}
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/schedules/requeue-params.erb within layouts/resque_web/application (1.5ms)
+Completed 200 OK in 49ms (Views: 48.9ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+-------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::RequeueTest: test_job_without_params
+-------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/schedule/requeue" for 127.0.0.1 at 2015-04-08 18:04:57 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::SchedulesController#requeue as HTML
+  Parameters: {"job_name"=>"job_without_params"}
+Redirected to http://www.example.com/resque_web/overview
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms)
+Started GET "/resque_web/overview" for 127.0.0.1 at 2015-04-08 18:04:57 +0100
+Processing by ResqueWeb::OverviewController#show as HTML
+  Rendered /Users/matt/.rvm/gems/ruby-2.1.2/gems/resque-web-0.0.6/app/views/resque_web/queues/_queues_basic.html.erb (1.2ms)
+  Rendered /Users/matt/.rvm/gems/ruby-2.1.2/gems/resque-web-0.0.6/app/views/resque_web/queues/_queues.html.erb (3.0ms)
+  Rendered /Users/matt/.rvm/gems/ruby-2.1.2/gems/resque-web-0.0.6/app/views/resque_web/working/_working.html.erb (0.8ms)
+  Rendered /Users/matt/.rvm/gems/ruby-2.1.2/gems/resque-web-0.0.6/app/views/resque_web/overview/show.html.erb within layouts/resque_web/application (7.3ms)
+Completed 200 OK in 31ms (Views: 31.2ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+-------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_does_not_remove_job_from_redis
+-------------------------------------------------------------------------------------------
+Started DELETE "/resque_web/scheduler/schedule" for 127.0.0.1 at 2015-04-08 18:04:57 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::SchedulesController#destroy as HTML
+  Parameters: {"job_name"=>"job_with_params"}
+Redirected to http://www.example.com/resque_web/scheduler/schedule
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+------------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_does_not_remove_the_job_from_the_UI
+------------------------------------------------------------------------------------------------
+Started DELETE "/resque_web/scheduler/schedule" for 127.0.0.1 at 2015-04-08 18:04:57 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::SchedulesController#destroy as HTML
+  Parameters: {"job_name"=>"job_with_params"}
+Redirected to http://www.example.com/resque_web/scheduler/schedule
+Completed 302 Found in 7ms (ActiveRecord: 0.0ms)
+Started GET "/resque_web/scheduler/schedule" for 127.0.0.1 at 2015-04-08 18:04:57 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::SchedulesController#index as HTML
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/schedules/index.html.erb within layouts/resque_web/application (2.1ms)
+Completed 200 OK in 32ms (Views: 31.2ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:04:57 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+Completed 500 Internal Server Error in 2ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+-----------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_scheduled_job
+-----------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:04:57 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"ivar"}
+Completed 500 Internal Server Error in 2ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+-------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::TimestampTest: test_shows_delayed_timestamp_view
+-------------------------------------------------------------------------------------
+Started GET "/resque_web/scheduler/delayed/1234567890" for 127.0.0.1 at 2015-04-08 18:04:57 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#timestamp as HTML
+  Parameters: {"timestamp"=>"1234567890"}
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/delayed/_next_more.erb (1.1ms)
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/delayed/timestamp.erb within layouts/resque_web/application (3.0ms)
+Completed 200 OK in 30ms (Views: 29.3ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+-----------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedJobNamespacedClassPageTest: test_is_200
+-----------------------------------------------------------------------------------
+Started GET "/resque_web/scheduler/delayed/jobs/Foo::Bar?args=%5B%2522foo%2522%2C%2522bar%2522%5D" for 127.0.0.1 at 2015-04-08 18:04:57 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#jobs_klass as HTML
+  Parameters: {"args"=>"[%22foo%22,%22bar%22]", "klass"=>"Foo::Bar"}
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/delayed/jobs_klass.erb within layouts/resque_web/application (0.6ms)
+Completed 200 OK in 26ms (Views: 25.2ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedJobNamespacedClassPageTest: test_see_the_scheduled_job
+--------------------------------------------------------------------------------------------------
+Started GET "/resque_web/scheduler/delayed/jobs/Foo::Bar?args=%5B%2522foo%2522%2C%2522bar%2522%5D" for 127.0.0.1 at 2015-04-08 18:04:57 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#jobs_klass as HTML
+  Parameters: {"args"=>"[%22foo%22,%22bar%22]", "klass"=>"Foo::Bar"}
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/delayed/jobs_klass.erb within layouts/resque_web/application (0.1ms)
+Completed 200 OK in 27ms (Views: 26.2ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::ScheduleTest: test_excludes_jobs_for_other_envs
+------------------------------------------------------------------------------------
+Started GET "/resque_web/scheduler/schedule" for 127.0.0.1 at 2015-04-08 18:04:57 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::SchedulesController#index as HTML
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/schedules/index.html.erb within layouts/resque_web/application (1.3ms)
+Completed 200 OK in 84ms (Views: 83.6ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::ScheduleTest: test_includes_job_used_in_multiple_environments
+--------------------------------------------------------------------------------------------------
+Started GET "/resque_web/scheduler/schedule" for 127.0.0.1 at 2015-04-08 18:04:57 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::SchedulesController#index as HTML
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/schedules/index.html.erb within layouts/resque_web/application (1.2ms)
+Completed 200 OK in 25ms (Views: 24.9ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+----------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::ScheduleTest: test_allows_delete_when_dynamic
+----------------------------------------------------------------------------------
+Started GET "/resque_web/scheduler/schedule" for 127.0.0.1 at 2015-04-08 18:04:57 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::SchedulesController#index as HTML
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/schedules/index.html.erb within layouts/resque_web/application (1.2ms)
+Completed 200 OK in 33ms (Views: 32.6ms | ActiveRecord: 0.0ms)
+Started GET "/resque_web/scheduler/schedule" for 127.0.0.1 at 2015-04-08 18:04:57 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::SchedulesController#index as HTML
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/schedules/index.html.erb within layouts/resque_web/application (1.9ms)
+Completed 200 OK in 45ms (Views: 44.7ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+-------------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::ScheduleTest: test_Link_to_Schedule_page_in_navigation_works
+-------------------------------------------------------------------------------------------------
+Started GET "/resque_web/scheduler/schedule" for 127.0.0.1 at 2015-04-08 18:04:57 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::SchedulesController#index as HTML
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/schedules/index.html.erb within layouts/resque_web/application (1.2ms)
+Completed 200 OK in 22ms (Views: 22.1ms | ActiveRecord: 0.0ms)
+Started GET "/resque_web" for 127.0.0.1 at 2015-04-08 18:04:57 +0100
+Processing by ResqueWeb::OverviewController#show as HTML
+  Rendered /Users/matt/.rvm/gems/ruby-2.1.2/gems/resque-web-0.0.6/app/views/resque_web/queues/_queues_basic.html.erb (1.3ms)
+  Rendered /Users/matt/.rvm/gems/ruby-2.1.2/gems/resque-web-0.0.6/app/views/resque_web/queues/_queues.html.erb (1.4ms)
+  Rendered /Users/matt/.rvm/gems/ruby-2.1.2/gems/resque-web-0.0.6/app/views/resque_web/working/_working.html.erb (0.2ms)
+  Rendered /Users/matt/.rvm/gems/ruby-2.1.2/gems/resque-web-0.0.6/app/views/resque_web/overview/show.html.erb within layouts/resque_web/application (1.9ms)
+Completed 200 OK in 28ms (Views: 28.1ms | ActiveRecord: 0.0ms)
+Started GET "/resque_web/scheduler/schedule" for 127.0.0.1 at 2015-04-08 18:04:57 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::SchedulesController#index as HTML
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/schedules/index.html.erb within layouts/resque_web/application (1.3ms)
+Completed 200 OK in 21ms (Views: 20.8ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+-----------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::ScheduleTest: test_200
+-----------------------------------------------------------
+Started GET "/resque_web/scheduler/schedule" for 127.0.0.1 at 2015-04-08 18:04:57 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::SchedulesController#index as HTML
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/schedules/index.html.erb within layouts/resque_web/application (1.2ms)
+Completed 200 OK in 22ms (Views: 21.7ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+----------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::ScheduleTest: test_doesn't_allow_delete_when_static
+----------------------------------------------------------------------------------------
+Started GET "/resque_web/scheduler/schedule" for 127.0.0.1 at 2015-04-08 18:04:58 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::SchedulesController#index as HTML
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/schedules/index.html.erb within layouts/resque_web/application (1.6ms)
+Completed 200 OK in 25ms (Views: 24.6ms | ActiveRecord: 0.0ms)
+Started GET "/resque_web/scheduler/schedule" for 127.0.0.1 at 2015-04-08 18:04:58 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::SchedulesController#index as HTML
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/schedules/index.html.erb within layouts/resque_web/application (1.2ms)
+Completed 200 OK in 23ms (Views: 22.6ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+-----------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::ScheduleTest: test_see_the_scheduled_job
+-----------------------------------------------------------------------------
+Started GET "/resque_web/scheduler/schedule" for 127.0.0.1 at 2015-04-08 18:04:58 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::SchedulesController#index as HTML
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/schedules/index.html.erb within layouts/resque_web/application (1.4ms)
+Completed 200 OK in 33ms (Views: 32.8ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedClearTest: test_redirects_to_delayed
+--------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/clear" for 127.0.0.1 at 2015-04-08 18:04:58 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#clear as HTML
+Redirected to http://www.example.com/resque_web/scheduler/delayed
+Completed 302 Found in 7ms (ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+-----------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedTest: test_Link_to_delayed_page_in_navigation_works
+-----------------------------------------------------------------------------------------------
+Started GET "/resque_web" for 127.0.0.1 at 2015-04-08 18:04:58 +0100
+Processing by ResqueWeb::OverviewController#show as HTML
+  Rendered /Users/matt/.rvm/gems/ruby-2.1.2/gems/resque-web-0.0.6/app/views/resque_web/queues/_queues_basic.html.erb (1.1ms)
+  Rendered /Users/matt/.rvm/gems/ruby-2.1.2/gems/resque-web-0.0.6/app/views/resque_web/queues/_queues.html.erb (1.2ms)
+  Rendered /Users/matt/.rvm/gems/ruby-2.1.2/gems/resque-web-0.0.6/app/views/resque_web/working/_working.html.erb (0.2ms)
+  Rendered /Users/matt/.rvm/gems/ruby-2.1.2/gems/resque-web-0.0.6/app/views/resque_web/overview/show.html.erb within layouts/resque_web/application (1.8ms)
+Completed 200 OK in 30ms (Views: 30.1ms | ActiveRecord: 0.0ms)
+Started GET "/resque_web/scheduler/delayed" for 127.0.0.1 at 2015-04-08 18:04:58 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#index as HTML
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/delayed/_search_form.erb (0.5ms)
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/delayed/_next_more.erb (0.1ms)
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/delayed/index.erb within layouts/resque_web/application (2.8ms)
+Completed 200 OK in 32ms (Views: 32.1ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+-------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedJobClassPageTest: test_is_200
+-------------------------------------------------------------------------
+Started GET "/resque_web/scheduler/delayed/jobs/SomeIvarJob?args=%5B%2522foo%2522%2C%2522bar%2522%5D" for 127.0.0.1 at 2015-04-08 18:04:58 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#jobs_klass as HTML
+  Parameters: {"args"=>"[%22foo%22,%22bar%22]", "klass"=>"SomeIvarJob"}
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/delayed/jobs_klass.erb within layouts/resque_web/application (0.2ms)
+Completed 200 OK in 33ms (Views: 32.2ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+----------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedJobClassPageTest: test_see_the_scheduled_job
+----------------------------------------------------------------------------------------
+Started GET "/resque_web/scheduler/delayed/jobs/SomeIvarJob?args=%5B%2522foo%2522%2C%2522bar%2522%5D" for 127.0.0.1 at 2015-04-08 18:04:58 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#jobs_klass as HTML
+  Parameters: {"args"=>"[%22foo%22,%22bar%22]", "klass"=>"SomeIvarJob"}
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/delayed/jobs_klass.erb within layouts/resque_web/application (0.2ms)
+Completed 200 OK in 74ms (Views: 27.0ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::RequeueWithParamsTest: test_job_with_params
+--------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/schedule/requeue_with_params" for 127.0.0.1 at 2015-04-08 18:04:58 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::SchedulesController#requeue_with_params as HTML
+  Parameters: {"job_name"=>"job_with_params", "log_level"=>"error"}
+Redirected to http://www.example.com/resque_web/overview
+Completed 302 Found in 4ms (ActiveRecord: 0.0ms)
+Started GET "/resque_web/overview" for 127.0.0.1 at 2015-04-08 18:04:58 +0100
+Processing by ResqueWeb::OverviewController#show as HTML
+  Rendered /Users/matt/.rvm/gems/ruby-2.1.2/gems/resque-web-0.0.6/app/views/resque_web/queues/_queues_basic.html.erb (1.0ms)
+  Rendered /Users/matt/.rvm/gems/ruby-2.1.2/gems/resque-web-0.0.6/app/views/resque_web/queues/_queues.html.erb (1.2ms)
+  Rendered /Users/matt/.rvm/gems/ruby-2.1.2/gems/resque-web-0.0.6/app/views/resque_web/working/_working.html.erb (0.2ms)
+  Rendered /Users/matt/.rvm/gems/ruby-2.1.2/gems/resque-web-0.0.6/app/views/resque_web/overview/show.html.erb within layouts/resque_web/application (1.7ms)
+Completed 200 OK in 22ms (Views: 21.7ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+-------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DeleteDynamicScheduleTest: test_removes_job_from_redis
+-------------------------------------------------------------------------------------------
+Started DELETE "/resque_web/scheduler/schedule" for 127.0.0.1 at 2015-04-08 18:04:58 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::SchedulesController#destroy as HTML
+  Parameters: {"job_name"=>"job_with_params"}
+Redirected to http://www.example.com/resque_web/scheduler/schedule
+Completed 302 Found in 4ms (ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+-----------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DeleteDynamicScheduleTest: test_redirects_to_schedule_page
+-----------------------------------------------------------------------------------------------
+Started DELETE "/resque_web/scheduler/schedule" for 127.0.0.1 at 2015-04-08 18:04:58 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::SchedulesController#destroy as HTML
+Redirected to http://www.example.com/resque_web/scheduler/schedule
+Completed 302 Found in 7ms (ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DeleteDynamicScheduleTest: test_does_not_show_the_deleted_job
+--------------------------------------------------------------------------------------------------
+Started DELETE "/resque_web/scheduler/schedule?job_name=job_with_params" for 127.0.0.1 at 2015-04-08 18:04:58 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::SchedulesController#destroy as HTML
+  Parameters: {"job_name"=>"job_with_params"}
+Redirected to http://www.example.com/resque_web/scheduler/schedule
+Completed 302 Found in 5ms (ActiveRecord: 0.0ms)
+Started GET "/resque_web/scheduler/schedule" for 127.0.0.1 at 2015-04-08 18:04:58 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::SchedulesController#index as HTML
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/schedules/index.html.erb within layouts/resque_web/application (0.9ms)
+Completed 200 OK in 24ms (Views: 23.5ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+-----------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::QueueNowTest: test_redirects_to_overview
+-----------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/queue_now" for 127.0.0.1 at 2015-04-08 18:04:58 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#queue_now as HTML
+Redirected to http://www.example.com/resque_web/overview
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.3ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.8ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:05:16 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+Completed 500 Internal Server Error in 2ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.2ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (1.0ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (1.0ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:06:16 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+Completed 500 Internal Server Error in 2ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.0ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.9ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:08:07 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+Completed 500 Internal Server Error in 1ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (1.1ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.9ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:08:35 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+Completed 500 Internal Server Error in 1ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.3ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.7ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (1.1ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:08:57 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+Completed 500 Internal Server Error in 1ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.4ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.9ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:09:12 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+Completed 500 Internal Server Error in 1ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.3ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.8ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:09:17 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+Completed 500 Internal Server Error in 1ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.1ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.9ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:09:32 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+Completed 500 Internal Server Error in 1ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (1.0ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.8ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:09:38 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+Completed 500 Internal Server Error in 1ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.4ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (1.0ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:09:56 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+Completed 500 Internal Server Error in 2ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.6ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (1.0ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (1.0ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:10:00 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+Completed 500 Internal Server Error in 1ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.5ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (1.0ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (1.0ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:10:05 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+Completed 500 Internal Server Error in 1ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.2ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (1.0ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:10:20 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+Completed 500 Internal Server Error in 2ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (0.9ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.8ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:10:40 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+Completed 500 Internal Server Error in 2ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.4ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.2ms)[0m  select sqlite_version(*)
+  [1m[36m (0.9ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:11:00 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+Completed 500 Internal Server Error in 2ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.6ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (1.0ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (1.1ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:11:16 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+Completed 500 Internal Server Error in 2ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.3ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.8ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:11:20 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+Completed 500 Internal Server Error in 3ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.9ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (3.0ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.2ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (2.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:11:37 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/delayed/_search_form.erb (0.6ms)
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/delayed/search.erb within layouts/resque_web/application (61.2ms)
+Completed 200 OK in 129ms (Views: 126.0ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.0ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.9ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:11:43 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/delayed/_search_form.erb (0.5ms)
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/delayed/search.erb within layouts/resque_web/application (42.9ms)
+Completed 200 OK in 94ms (Views: 91.3ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.4ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.9ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:12:35 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+Completed 500 Internal Server Error in 2ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (6.9ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.8ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (1.0ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:12:48 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+Completed 500 Internal Server Error in 1ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (1.0ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.8ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:12:57 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+Completed 500 Internal Server Error in 1ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.2ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.8ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:13:08 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+Completed 500 Internal Server Error in 3ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (1.0ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.7ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:13:13 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/delayed/_search_form.erb (0.5ms)
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/delayed/search.erb within layouts/resque_web/application (4.4ms)
+Completed 200 OK in 94ms (Views: 91.0ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (1.4ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (1.2ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.2ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (1.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:13:18 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+Completed 500 Internal Server Error in 1ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.3ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.9ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:13:23 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+Completed 500 Internal Server Error in 1ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.4ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (1.0ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:13:28 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+Completed 500 Internal Server Error in 2ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.3ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.8ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:13:53 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+Completed 500 Internal Server Error in 1ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.3ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.8ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:13:58 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+Completed 500 Internal Server Error in 1ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.2ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.9ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:14:02 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+Completed 500 Internal Server Error in 1ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.3ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.8ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:14:07 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+Completed 500 Internal Server Error in 2ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.3ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.8ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:14:23 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+Completed 500 Internal Server Error in 3ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.5ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (1.1ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:14:38 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+Completed 500 Internal Server Error in 2ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.7ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.8ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:15:10 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/delayed/_search_form.erb (0.6ms)
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/delayed/search.erb within layouts/resque_web/application (38.0ms)
+Completed 200 OK in 97ms (Views: 93.6ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (0.9ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.8ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:15:23 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/delayed/_search_form.erb (0.8ms)
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/delayed/search.erb within layouts/resque_web/application (5.7ms)
+Completed 200 OK in 129ms (Views: 125.3ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.3ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.8ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:15:30 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/delayed/_search_form.erb (0.8ms)
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/delayed/search.erb within layouts/resque_web/application (5.1ms)
+Completed 200 OK in 161ms (Views: 158.1ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.3ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.7ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:15:38 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+Completed 500 Internal Server Error in 2ms
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.3ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.8ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:15:57 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/delayed/_search_form.erb (0.8ms)
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/delayed/search.erb within layouts/resque_web/application (5.3ms)
+Completed 200 OK in 92ms (Views: 89.3ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.3ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.8ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:16:32 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/delayed/_search_form.erb (0.6ms)
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/delayed/search.erb within layouts/resque_web/application (4.6ms)
+Completed 200 OK in 90ms (Views: 87.3ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (7.3ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.9ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:16:50 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/delayed/_search_form.erb (0.6ms)
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/delayed/search.erb within layouts/resque_web/application (36.4ms)
+Completed 200 OK in 94ms (Views: 91.3ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (6.8ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.9ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------------------------------------------------
+ResqueWeb::Plugins::ResqueScheduler::DelayedSearchTest: test_should_find_matching_queued_job
+--------------------------------------------------------------------------------------------
+Started POST "/resque_web/scheduler/delayed/search" for 127.0.0.1 at 2015-04-08 18:17:08 +0100
+Processing by ResqueWeb::Plugins::ResqueScheduler::DelayedController#search as HTML
+  Parameters: {"search"=>"quick"}
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/delayed/_search_form.erb (0.5ms)
+  Rendered /Users/matt/code/resque-scheduler-web/app/views/resque_web/plugins/resque_scheduler/delayed/search.erb within layouts/resque_web/application (4.4ms)
+Completed 200 OK in 87ms (Views: 84.7ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
