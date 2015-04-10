@@ -1,5 +1,4 @@
 <h1>Delayed Jobs</h1>
-<%- size = Resque.delayed_queue_schedule_size %>
 
 <%= render partial: 'search_form' %>
 
@@ -9,7 +8,7 @@
 </p>
 
 <p class='sub'>
-  Showing <%= start = params[:start].to_i %> to <%= start + 20 %> of <b><%= size %></b> timestamps
+  Showing <%= @start %> to <%= @start + @number_to_show %> of <b><%= @total_number_of_delayed_jobs %></b> timestamps
 </p>
 
 <table class="table table-bordered">
@@ -21,7 +20,7 @@
     <th>Args</th>
     <th>All schedules</th>
   </tr>
-  <% Resque.delayed_queue_peek(start, 20).each do |timestamp| %>
+  <% @timestamps.each do |timestamp| %>
     <tr>
       <td>
         <form action="<%= queue_now_path %>" method="post">
@@ -49,12 +48,12 @@
   <% end %>
 </table>
 
-<% if size > 0 %>
+<% if @total_number_of_delayed_jobs > 0 %>
   <br>
   <form method="POST" action="<%= clear_path %>" class='clear-delayed'>
     <input type='submit' name='' value='Clear Delayed Jobs' />
   </form>
 <% end %>
 
-<%= render partial: 'next_more', locals: { :start => start, :size => size } %>
+<%= render partial: 'next_more', locals: { :start => @start, :size => @total_number_of_delayed_jobs } %>
 

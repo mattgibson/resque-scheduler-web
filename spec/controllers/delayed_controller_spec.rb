@@ -5,21 +5,29 @@ describe ResqueWeb::Plugins::ResqueScheduler::DelayedController, type: :controll
 
   let(:some_time_in_the_future) { Time.now + 3600 }
 
-  describe 'POST cancel' do
+  describe 'GET index' do
+    it 'includes delayed jobs timestamp' do
+      Resque.enqueue_at(some_time_in_the_future, SomeIvarJob)
+      get :index
+      expect(assigns(:timestamps)).to include(some_time_in_the_future.to_i)
+    end
+  end
+
+  describe 'POST cancel_now' do
     it 'redirects to delayed index' do
       post :cancel_now
       expect(response).to redirect_to delayed_path
     end
   end
 
-  describe 'POST clear_path' do
+  describe 'POST clear' do
     it 'redirects to delayed index' do
       post :clear
       expect(response).to redirect_to delayed_path
     end
   end
 
-  describe 'GET delayed_job_class' do
+  describe 'GET jobs_klass' do
 
     shared_examples 'a delayed job class request' do
       it 'is a 200' do

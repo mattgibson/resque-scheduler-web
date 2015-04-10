@@ -6,6 +6,10 @@ module ResqueWeb
       # queue, or rescheduled.
       class DelayedController < ResqueWeb::ApplicationController
         def index
+          @start = params[:start].to_i
+          @number_to_show = 20
+          @total_number_of_delayed_jobs = Resque.delayed_queue_schedule_size
+          @timestamps = Resque.delayed_queue_peek(@start, @number_to_show)
         end
 
         def jobs_klass
