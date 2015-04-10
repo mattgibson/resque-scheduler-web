@@ -1,81 +1,68 @@
+require_relative '../../app/models/resque_web/plugins/resque_scheduler/job_finder'
 
 describe ResqueWeb::Plugins::ResqueScheduler::JobFinder do
 
-  teardown do
+  let(:non_matching_finder) { ResqueWeb::Plugins::ResqueScheduler::JobFinder.new('donkey') }
+
+  after do
     Resque.reset_delayed_queue
     Resque.queues.each { |q| Resque.remove_queue q }
   end
 
-  it 'returning an empty result set with a nil search term' do
-    Resque.enqueue(SomeQuickJob)
+  context 'with a scheduled job queued in the future' do
 
-    finder = ResqueWeb::Plugins::ResqueScheduler::JobFinder.new(nil)
-    assert_empty finder.find_jobs
+    let(:time_in_future) { Time.now + 60 }
+    let(:matching_finder) { ResqueWeb::Plugins::ResqueScheduler::JobFinder.new('ivar') }
+
+    before do
+      Resque.enqueue_at(time_in_future, SomeIvarJob)
+    end
+
+    it 'does not find a scheduled job that does not match' do
+      expect(non_matching_finder.find_jobs).to be_empty
+    end
+
+    it 'finds a matching scheduled job' do
+      expect(matching_finder.find_jobs.first['class']).to eq 'SomeIvarJob'
+    end
+
+    it 'sets "where_at" to "delayed" for the delayed scheduled jobs' do
+      expect(matching_finder.find_jobs.first['where_at']).to eq 'delayed'
+    end
+
+    it 'sets the timestamp for the delayed scheduled jobs' do
+      expect(matching_finder.find_jobs.first['timestamp']).to eq time_in_future.to_i
+    end
   end
 
-  it 'does not find a scheduled job that does not match' do
-    t = Time.now + 60
-    Resque.enqueue_at(t, SomeIvarJob)
+  context 'with a job currently in the queue' do
 
-    finder = ResqueWeb::Plugins::ResqueScheduler::JobFinder.new('donkey')
-    assert_empty finder.find_jobs
-  end
+    let(:matching_finder) { ResqueWeb::Plugins::ResqueScheduler::JobFinder.new('quick') }
 
-  it 'finds a matching scheduled job' do
-    t = Time.now + 60
-    Resque.enqueue_at(t, SomeIvarJob)
+    before do
+      Resque.enqueue(SomeQuickJob)
+    end
 
-    finder = ResqueWeb::Plugins::ResqueScheduler::JobFinder.new('ivar')
-    assert_equal 'SomeIvarJob', finder.find_jobs.first['class']
-  end
+    it 'returns an empty result set with a nil search term' do
+      finder = ResqueWeb::Plugins::ResqueScheduler::JobFinder.new(nil)
+      expect(finder.find_jobs).to be_empty
+    end
 
-  it 'sets "where_at" to "delayed" for the delayed scheduled jobs' do
-    t = Time.now + 60
-    Resque.enqueue_at(t, SomeIvarJob)
+    it 'should find matching queued job' do
+      expect(matching_finder.find_jobs.first['class']).to eq 'SomeQuickJob'
+    end
 
-    finder = ResqueWeb::Plugins::ResqueScheduler::JobFinder.new('ivar')
-    assert_equal 'delayed', finder.find_jobs.first['where_at']
-  end
+    it 'adds the queue name to the returned queued jobs' do
+      expect(matching_finder.find_jobs.first['queue']).to eq 'quick'
+    end
 
-  it 'sets the timestamp for the delayed scheduled jobs' do
-    t = Time.now + 60
-    Resque.enqueue_at(t, SomeIvarJob)
+    it 'sets "where_at" to "queued" for the returned queued jobs' do
+      expect(matching_finder.find_jobs.first['where_at']).to eq 'queued'
+    end
 
-    finder = ResqueWeb::Plugins::ResqueScheduler::JobFinder.new('ivar')
-    assert_equal t.to_i, finder.find_jobs.first['timestamp']
-  end
-
-
-  it 'should find matching queued job' do
-    Resque.enqueue(SomeQuickJob)
-
-    finder = ResqueWeb::Plugins::ResqueScheduler::JobFinder.new('quick')
-    assert_equal 'SomeQuickJob', finder.find_jobs.first['class']
-  end
-
-  it 'adds the queue name to the returned queued jobs' do
-    Resque.enqueue(SomeQuickJob)
-
-    finder = ResqueWeb::Plugins::ResqueScheduler::JobFinder.new('quick')
-    assert_equal 'quick', finder.find_jobs.first['queue']
-  end
-
-  it 'sets "where_at" to "queued" for the returned queued jobs' do
-    Resque.enqueue(SomeQuickJob)
-
-    finder = ResqueWeb::Plugins::ResqueScheduler::JobFinder.new('quick')
-    assert_equal 'queued', finder.find_jobs.first['where_at']
-  end
-
-  it 'does not find a queued job that does not match' do
-    Resque.enqueue(SomeQuickJob)
-
-    finder = ResqueWeb::Plugins::ResqueScheduler::JobFinder.new('donkey')
-    assert_empty finder.find_jobs
-  end
-
-  it 'includes working jobs' do
-
+    it 'does not find a queued job that does not match' do
+      expect(non_matching_finder.find_jobs).to be_empty
+    end
   end
 
 end

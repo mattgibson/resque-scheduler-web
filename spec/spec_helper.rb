@@ -1,17 +1,8 @@
-
 ENV['RAILS_ENV'] = 'test'
-require File.expand_path("../dummy/config/environment.rb", __FILE__)
-ActiveRecord::Migrator.migrations_paths = [File.expand_path(
-                                             '../../test/dummy/db/migrate',
-                                             __FILE__
-                                           )]
-ActiveRecord::Migrator.migrations_paths << File.expand_path(
-  '../../db/migrate',
-  __FILE__
-)
-
 
 require 'resque'
+require 'resque-scheduler'
+
 unless ENV['RESQUE_SCHEDULER_DISABLE_TEST_REDIS_SERVER']
   # Start our own Redis when the tests start. RedisInstance will take care of
   # starting and stopping.
@@ -19,10 +10,8 @@ unless ENV['RESQUE_SCHEDULER_DISABLE_TEST_REDIS_SERVER']
   RedisInstance.run!
 end
 
-require 'rspec/rails'
 
 require File.expand_path('../support/test_jobs', __FILE__)
-
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate

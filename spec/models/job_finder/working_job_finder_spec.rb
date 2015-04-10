@@ -1,3 +1,4 @@
+require_relative '../../../app/models/resque_web/plugins/resque_scheduler/job_finder/working_job_finder'
 
 describe ResqueWeb::Plugins::ResqueScheduler::JobFinder::WorkingJobFinder do
 
@@ -17,21 +18,21 @@ describe ResqueWeb::Plugins::ResqueScheduler::JobFinder::WorkingJobFinder do
 
   it 'finds a working job when the search term matches' do
     finder = ResqueWeb::Plugins::ResqueScheduler::JobFinder::WorkingJobFinder.new('going')
-    assert_equal 'OngoingJob', finder.find_jobs.first['class']
+    expect(finder.find_jobs.first['class']).to eq 'OngoingJob'
   end
 
   it 'does not find a working job when the search term does not match' do
     finder = ResqueWeb::Plugins::ResqueScheduler::JobFinder::WorkingJobFinder.new('donkey')
-    assert_empty finder.find_jobs
+    expect(finder.find_jobs).to be_empty
   end
 
   it 'adds the queue name to the returned jobs' do
     finder = ResqueWeb::Plugins::ResqueScheduler::JobFinder::WorkingJobFinder.new('going')
-    assert_equal 'quick', finder.find_jobs.first['queue']
+    expect(finder.find_jobs.first['queue']).to eq 'quick'
   end
 
   it 'sets the where_at value to "working" for the returned jobs' do
     finder = ResqueWeb::Plugins::ResqueScheduler::JobFinder::WorkingJobFinder.new('going')
-    assert_equal 'working', finder.find_jobs.first['where_at']
+    expect(finder.find_jobs.first['where_at']).to eq 'working'
   end
 end
