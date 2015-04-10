@@ -29,6 +29,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'resque-web'
   spec.add_development_dependency 'resque-scheduler'
   spec.add_development_dependency 'sqlite3'
+  spec.add_development_dependency 'rspec-rails'
   spec.add_development_dependency 'mocha'
   spec.add_development_dependency 'capybara'
   spec.add_development_dependency 'sass' # Avoids non-thread-safe error.
