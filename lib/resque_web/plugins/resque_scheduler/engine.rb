@@ -3,14 +3,14 @@ require 'resque_web'
 module ResqueWeb
   module Plugins
     module ResqueScheduler
-      class Engine < Rails::Engine
+      class Engine < ::Rails::Engine
         isolate_namespace ResqueWeb::Plugins::ResqueScheduler
 
-        paths['app'] << 'app'
-        paths['app/helpers'] << 'app/helpers'
-        paths['app/views'] << 'app/views'
-        paths['app/controllers'] << 'app/controllers'
-        paths['app/models'] << 'app/models'
+        # paths['app'] << 'app'
+        # paths['app/helpers'] << 'app/helpers'
+        # paths['app/views'] << 'app/views'
+        # paths['app/controllers'] << 'app/controllers'
+        # paths['app/models'] << 'app/models'
       end
 
       Engine.routes do
@@ -28,7 +28,7 @@ module ResqueWeb
         post 'delayed/search', to: 'delayed#search', as: 'delayed_search'
         get 'delayed/:timestamp', to: 'delayed#timestamp', as: 'timestamp'
         post 'delayed/queue_now', to: 'delayed#queue_now', as: 'queue_now'
-        post 'delayed/cancel_now', to: 'delayed#cancel_now', as: 'cancel_now'
+        post '/delayed/cancel_now', to: 'delayed#cancel_now', as: 'cancel_now'
         post '/delayed/clear', to: 'delayed#clear', as: 'clear'
       end
 

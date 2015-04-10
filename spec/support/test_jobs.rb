@@ -22,3 +22,11 @@ class SomeIvarJob < SomeJob
   @queue = :ivar
 end
 
+module Foo
+  class Bar
+    def self.queue
+      'bar'
+    end
+  end
+end
+

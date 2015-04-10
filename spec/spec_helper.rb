@@ -1,7 +1,9 @@
 ENV['RAILS_ENV'] = 'test'
 
 require 'resque'
+
 require 'resque-scheduler'
+
 
 unless ENV['RESQUE_SCHEDULER_DISABLE_TEST_REDIS_SERVER']
   # Start our own Redis when the tests start. RedisInstance will take care of
@@ -9,7 +11,6 @@ unless ENV['RESQUE_SCHEDULER_DISABLE_TEST_REDIS_SERVER']
   require File.expand_path('../support/redis_instance', __FILE__)
   RedisInstance.run!
 end
-
 
 require File.expand_path('../support/test_jobs', __FILE__)
 
