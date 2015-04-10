@@ -85,6 +85,17 @@ class SomeQuickJob < SomeJob
   @queue = :quick
 end
 
+# Allows us to test that we can find working jobs
+class OngoingJob
+  def self.queue
+    :quick
+  end
+
+  def self.perform
+    sleep 5
+  end
+end
+
 class SomeRealClass
   def self.queue
     :some_real_queue

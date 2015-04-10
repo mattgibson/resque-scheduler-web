@@ -7,46 +7,34 @@ module ResqueWeb
 
         attr_accessor :search_term
 
-        def initialize(search_term)
-          @search_term = search_term.downcase!
-          @search_term ||= ''
+        def initialize(search_term = nil)
+          @search_term = search_term || ''
+          @search_term.downcase!
         end
 
         def find_jobs
-          results = working_jobs_where_class_name_contains_search_term
+          return [] if search_term.empty?
+          results = []
+          results += working_jobs_where_class_name_contains_search_term
           results += delayed_jobs_where_class_name_contains_search_term
           results + queued_jobs_where_class_name_matches_search_term
         end
 
         def working_jobs_where_class_name_contains_search_term
-          [].tap do |results|
-            work = all_working_jobs.select do |w|
-              w.job && w.job['payload'] &&
-                w.job['payload']['class'].downcase.include?(search_term)
-            end
-            work.each do |w|
-              results += [
-                w.job['payload'].merge(
-                  'queue' => w.job['queue'], 'where_at' => 'working'
-                )
-              ]
-            end
-          end
-        end
-
-        def all_working_jobs
-          [*Resque.working]
+          WorkingJobFinder.new(search_term).find_jobs
         end
 
         def delayed_jobs_where_class_name_contains_search_term
-          delayed_job_timestamps.inject([]) do |dels, timestamp|
-            delayed_jobs_for_timestamp(timestamp).each do |job|
-              if job['class'].downcase.include?(search_term)
-                job.merge!('where_at' => 'delayed')
-                job.merge!('timestamp' => timestamp)
-                dels << job
-              end
-            end
+          delayed_job_timestamps.inject([]) do |matching_jobs, timestamp|
+            matching_jobs + delayed_jobs_for_timestamp_that_match_search_term(timestamp)
+          end
+        end
+
+        def delayed_jobs_for_timestamp_that_match_search_term(timestamp)
+          delayed_jobs_for_timestamp(timestamp).select do |job|
+            job['class'].downcase.include?(search_term) &&
+              job.merge!('where_at' => 'delayed') &&
+              job.merge!('timestamp' => timestamp)
           end
         end
 
@@ -70,12 +58,13 @@ module ResqueWeb
 
         def queued_jobs_where_class_name_matches_search_term
           Resque.queues.inject([]) do |results, queue|
-            results + queued_jobs_from_queue(queue).select do |j|
-              j['class'].downcase.include?(search_term) && j.merge!('queue' => queue, 'where_at' => 'queued')
+            results + queued_jobs_from_queue(queue).select do |job|
+              job['class'].downcase.include?(search_term) &&
+                job.merge!('queue' => queue) &&
+                job.merge!('where_at' => 'queued')
             end
           end
         end
-
 
         def queued_jobs_from_queue(queue)
           bits = Resque.peek(queue, 0, Resque.size(queue))
