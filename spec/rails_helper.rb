@@ -22,7 +22,6 @@ end
 
 # Travis fails to find Redis without this, although it works locally.
 # No idea why.
-# RedisInstance.run!
 Resque.redis = Redis.new(
   hostname: '127.0.0.1', port: RedisInstance.port, thread_safe: true
 )
