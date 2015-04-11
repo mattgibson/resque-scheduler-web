@@ -1,9 +1,21 @@
+require 'resque/scheduler/server'
+
 module ResqueWeb
   module Plugins
     module ResqueScheduler
       class SchedulesController < ResqueWeb::ApplicationController
+
+        include Resque::Scheduler::Server::HelperMethods
+
         def index
           Resque.reload_schedule! if Resque::Scheduler.dynamic
+          jobs_in_this_env = Resque.schedule.select do |name|
+            scheduled_in_this_env?(name)
+          end
+          keys = jobs_in_this_env.keys.sort
+          @scheduled_jobs = keys.inject({}) do |jobs, job_name|
+            jobs.merge(job_name => Resque.schedule[job_name])
+          end
         end
 
         def destroy

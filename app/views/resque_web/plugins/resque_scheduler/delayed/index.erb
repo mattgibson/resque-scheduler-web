@@ -8,7 +8,9 @@
 </p>
 
 <p class='sub'>
-  Showing <%= @start %> to <%= @start + @number_to_show %> of <b><%= @total_number_of_delayed_jobs %></b> timestamps
+  <% finish = [@start + @number_to_show, @total_number_of_delayed_jobs].min %>
+  Showing <%= @start %> to <%= finish %> of
+  <b><%= @total_number_of_delayed_jobs %></b> timestamps
 </p>
 
 <table class="table table-bordered">
