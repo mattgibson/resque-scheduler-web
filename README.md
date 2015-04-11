@@ -33,7 +33,6 @@ Web engine mounted like this in routes.rb:
     cd resque-scheduler-web
     bundle exec rspec spec
 
-
 ## Contributing
 
 1. Fork it ( https://github.com/mattgibson/resque-scheduler-web/fork )
