@@ -2,6 +2,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/resque-scheduler-web.svg)](http://badge.fury.io/rb/resque-scheduler-web)
 [![Code Climate](https://codeclimate.com/github/mattgibson/resque-scheduler-web/badges/gpa.svg)](https://codeclimate.com/github/mattgibson/resque-scheduler-web)
+[![Build Status](https://travis-ci.org/mattgibson/resque-scheduler-web.svg?branch=master)](https://travis-ci.org/mattgibson/resque-scheduler-web)
 
 This gem provides tabs in [Resque Web](https://github.com/resque/resque-web)
 for managing [Resque Scheduler](https://github.com/resque/resque-scheduler). It uses the
