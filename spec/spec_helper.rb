@@ -16,7 +16,6 @@ unless ENV['RESQUE_SCHEDULER_DISABLE_TEST_REDIS_SERVER']
   # starting and stopping.
   require File.expand_path('../support/redis_instance', __FILE__)
   RedisInstance.run!
-  Resque.redis = "127.0.0.1:#{RedisInstance.port}"
 end
 
 require File.expand_path('../support/test_jobs', __FILE__)
