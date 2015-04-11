@@ -32,3 +32,11 @@ Web engine mounted like this in routes.rb:
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
+
+
+## Acknowledgements
+
+The original code and tests for this gem were taken from the Resque Scheduler gem's
+Sinatra interface, and subsequently adapted into a Rails engine. Kudos and
+thanks to the [original](https://github.com/resque/resque-scheduler/commits/master/lib/resque/scheduler/server.rb)
+[authors](https://github.com/resque/resque-scheduler/commits/e0e91aa238c51db12794755430a7411c6ad1bfca/lib/resque_scheduler/server.rb).
