@@ -20,6 +20,10 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 end
 
-RedisInstance.run!
-
+# Travis fails to find Redis without this, although it works locally.
+# No idea why.
+# RedisInstance.run!
+Resque.redis = Redis.new(
+  hostname: '127.0.0.1', port: RedisInstance.port, thread_safe: true
+)
 
