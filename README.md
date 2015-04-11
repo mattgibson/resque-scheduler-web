@@ -34,7 +34,7 @@ Web engine mounted like this in routes.rb:
 ## Running the tests
 
     cd resque-scheduler-web
-    bundle exec rspec spec
+    bundle exec rake
 
 ## Contributing
 
