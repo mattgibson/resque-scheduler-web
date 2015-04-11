@@ -33,6 +33,10 @@ class RedisInstance
       @pid = nil
     end
 
+    def port
+      @port ||= random_port
+    end
+
     private
 
     def post_boot_waiting_and_such
@@ -89,10 +93,6 @@ class RedisInstance
       Timeout.timeout(10) do
         loop { break if File.exist?(pid_file) }
       end
-    end
-
-    def port
-      @port ||= random_port
     end
 
     def pid_file
