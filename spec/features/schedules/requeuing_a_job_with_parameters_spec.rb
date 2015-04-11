@@ -7,6 +7,11 @@ feature 'requeuing a job that has defined params' do
     Resque::Scheduler.load_schedule!
   end
 
+  after do
+    Resque.reset_delayed_queue
+    Resque.queues.each { |q| Resque.remove_queue q }
+  end
+
   # Given I have a job which requires params in the schedule
   # When I press the requeue button
   # Then I should be presented with a form that prompts me for the params
@@ -28,7 +33,8 @@ feature 'requeuing a job that has defined params' do
     click_button 'Queue now'
 
     expect(current_path).to eq ResqueWeb::Engine.app.url_helpers.overview_path
-    click_link queue_name
+    puts page.body
+    find('.queues .queue a', text: 'quick').click
 
     expect(page).to have_content job_class
     expect(page).to have_css 'td.args', text: /"log_level"=>"info"/
