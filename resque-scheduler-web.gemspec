@@ -11,7 +11,8 @@ Gem::Specification.new do |spec|
   spec.summary       = 'This gem provides tabs in Resque Web for managing '\
                        'Resque Scheduler.'
   spec.description   = 'Use this if you want to move to the new Resque Web '\
-                       'plugin architecture via the resque-web gem, rather '\
+                       'plugin architecture for Resque Scheduler via the'\
+                       'resque-web gem, rather '\
                        'than the Sinatra-based approach that is bundled with '\
                        'Resque 1.x'
   spec.homepage      = 'https://github.com/mattgibson/resque-scheduler-web'
