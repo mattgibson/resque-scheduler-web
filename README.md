@@ -24,6 +24,11 @@ Web engine mounted like this in routes.rb:
 
     mount ResqueWeb::Engine => 'admin/resque_web'
 
+## Running the tests
+
+    cd resque-scheduler-web
+    bundle exec rspec spec
+
 
 ## Contributing
 
