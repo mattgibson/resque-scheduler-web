@@ -1,6 +1,7 @@
 # Resque::Scheduler::Web
 
-This gem provides tabs in Resque Web for managing Resque Scheduler. It uses the
+This gem provides tabs in [Resque Web](https://github.com/resque/resque-web)
+for managing [Resque Scheduler](https://github.com/resque/resque-scheduler). It uses the
 new Rails Engine approach, rather than the old Sinatra one.
 
 ## Installation
