@@ -4,6 +4,10 @@ require 'resque'
 
 require 'resque-scheduler'
 
+Resque::Scheduler.configure do |c|
+  c.quiet = true
+end
+
 unless ENV['RESQUE_SCHEDULER_DISABLE_TEST_REDIS_SERVER']
   # Start our own Redis when the tests start. RedisInstance will take care of
   # starting and stopping.
