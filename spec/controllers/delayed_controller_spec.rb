@@ -5,6 +5,11 @@ describe ResqueWeb::Plugins::ResqueScheduler::DelayedController, type: :controll
 
   let(:some_time_in_the_future) { Time.now + 3600 }
 
+  after do
+    Resque.reset_delayed_queue
+    Resque.queues.each { |q| Resque.remove_queue q }
+  end
+
   describe 'GET index' do
     it 'includes delayed jobs timestamp' do
       Resque.enqueue_at(some_time_in_the_future, SomeIvarJob)
@@ -46,11 +51,6 @@ describe ResqueWeb::Plugins::ResqueScheduler::DelayedController, type: :controll
       get :jobs_klass, params
     end
 
-    after do
-      Resque.reset_delayed_queue
-      Resque.queues.each { |q| Resque.remove_queue q }
-    end
-
     context 'with a normal class' do
       let(:klass) { SomeIvarJob }
       it_behaves_like 'a delayed job class request'
@@ -72,11 +72,6 @@ describe ResqueWeb::Plugins::ResqueScheduler::DelayedController, type: :controll
       it 'see the scheduled job timestamp' do
         expect(assigns(:jobs)).to include(hash_including 'class' => 'SomeIvarJob')
       end
-    end
-
-    after do
-      Resque.reset_delayed_queue
-      Resque.queues.each { |q| Resque.remove_queue q }
     end
 
     context 'with a delayed job scheduled for the future' do

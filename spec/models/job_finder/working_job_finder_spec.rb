@@ -14,6 +14,8 @@ describe ResqueWeb::Plugins::ResqueScheduler::JobFinder::WorkingJobFinder do
 
   after do
     @worker_thread.kill
+    Resque.reset_delayed_queue
+    Resque.queues.each { |q| Resque.remove_queue q }
   end
 
   it 'finds a working job when the search term matches' do
