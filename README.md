@@ -2,7 +2,6 @@
 
 [![Gem Version](https://badge.fury.io/rb/resque-scheduler-web.svg)](http://badge.fury.io/rb/resque-scheduler-web)
 [![Code Climate](https://codeclimate.com/github/mattgibson/resque-scheduler-web/badges/gpa.svg)](https://codeclimate.com/github/mattgibson/resque-scheduler-web)
-[![Coverage Status](https://coveralls.io/repos/mattgibson/resque-scheduler-web/badge.svg?branch=master)](https://coveralls.io/r/mattgibson/resque-scheduler-web?branch=master)
 [![Inline docs](http://inch-ci.org/github/mattgibson/resque-scheduler-web.svg?branch=master)](http://inch-ci.org/github/mattgibson/resque-scheduler-web)
 [![Build Status](https://travis-ci.org/mattgibson/resque-scheduler-web.svg?branch=master)](https://travis-ci.org/mattgibson/resque-scheduler-web)
 

@@ -31,7 +31,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'sqlite3', '~> 1.3'
   spec.add_development_dependency 'rspec-rails', '~> 3.2'
   spec.add_development_dependency 'capybara', '~> 2.4'
-  spec.add_development_dependency 'coveralls', '~> 0.8'
+  spec.add_development_dependency 'codeclimate-test-reporter'
   spec.add_development_dependency 'sass', '~> 3.4' # Avoids non-thread-safe error.
 
 end
