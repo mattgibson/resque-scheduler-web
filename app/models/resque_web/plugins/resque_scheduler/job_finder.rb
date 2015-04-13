@@ -4,7 +4,6 @@ module ResqueWeb
       # This class exists to find jobs which match a search term. They may be
       # being processed, in the queue, or delayed.
       class JobFinder
-
         # The search term that the user entered.
         attr_accessor :search_term
 
@@ -33,8 +32,8 @@ module ResqueWeb
         end
 
         def delayed_jobs_where_class_name_contains_search_term
-          delayed_job_timestamps.inject([]) do |matching_jobs, timestamp|
-            matching_jobs + delayed_jobs_for_timestamp_that_match_search_term(timestamp)
+          delayed_job_timestamps.inject([]) do |jobs, timestamp|
+            jobs + delayed_jobs_for_timestamp_that_match_search_term(timestamp)
           end
         end
 
@@ -75,14 +74,13 @@ module ResqueWeb
         end
 
         def queued_jobs_from_queue(queue)
-          bits = Resque.peek(queue, 0, Resque.size(queue))
-          if bits.is_a? Array
-            bits
+          jobs = Resque.peek(queue, 0, Resque.size(queue))
+          if jobs.is_a? Array
+            jobs
           else
-            [bits]
+            [jobs]
           end
         end
-
       end
     end
   end

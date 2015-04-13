@@ -4,7 +4,6 @@ module ResqueWeb
       class JobFinder
         # This class finds working jobs that Resque is currently processing
         class WorkingJobFinder
-
           # The terms that the user entered.
           attr_accessor :search_term
 
@@ -30,7 +29,7 @@ module ResqueWeb
           # @return [Array] Returns an array of hashes.
           #
           def find_jobs
-            workers_with_jobs_that_match_search_term.collect do |w|
+            workers_with_jobs_that_match_search_term.map do |w|
               w.job['payload'].merge(
                 'queue' => w.job['queue'],
                 'where_at' => 'working'

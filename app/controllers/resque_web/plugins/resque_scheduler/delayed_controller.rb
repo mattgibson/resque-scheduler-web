@@ -5,7 +5,6 @@ module ResqueWeb
       # application, so here, they can be run immediately, deleted from the
       # queue, or rescheduled.
       class DelayedController < ResqueWeb::ApplicationController
-
         # GET /delayed
         def index
           @start = params[:start].to_i
@@ -56,7 +55,6 @@ module ResqueWeb
         def timestamp
           @timestamp = params[:timestamp].to_i
         end
-
       end
     end
   end

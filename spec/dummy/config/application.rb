@@ -7,6 +7,7 @@ require 'resque_web'
 require 'resque-scheduler'
 
 module Dummy
+  # Main application class for Dummy Rails app
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified
     # here. Application configuration should go into files in

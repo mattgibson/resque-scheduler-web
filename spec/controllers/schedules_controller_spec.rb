@@ -1,13 +1,12 @@
 require 'rails_helper'
 
-describe ResqueWeb::Plugins::ResqueScheduler::SchedulesController, type: :controller do
+describe ResqueWeb::Plugins::ResqueScheduler::SchedulesController,
+         type: :controller do
   routes { ResqueWeb::Plugins::ResqueScheduler::Engine.routes }
 
   describe 'GET index' do
-
     before do
       Resque::Scheduler.env = 'production'
-      
       Resque.schedule = {
         'some_ivar_job' => {
           'cron' => '* * * * *',
@@ -42,17 +41,25 @@ describe ResqueWeb::Plugins::ResqueScheduler::SchedulesController, type: :contro
     end
 
     it 'sees the scheduled job' do
-      expect(assigns(:scheduled_jobs)).to match hash_including('some_ivar_job' => hash_including('class' => 'SomeIvarJob'))
+      expect(assigns(:scheduled_jobs)).to match \
+        hash_including(
+          'some_ivar_job' => hash_including('class' => 'SomeIvarJob')
+        )
     end
 
     it 'excludes jobs for other envs' do
-      expect(assigns(:scheduled_jobs)).to_not match hash_including('some_fancy_job' => hash_including('class' => 'SomeFancyJob'))
+      expect(assigns(:scheduled_jobs)).to_not match \
+        hash_including(
+          'some_fancy_job' => hash_including('class' => 'SomeFancyJob')
+        )
     end
 
     it 'includes job used in multiple environments' do
-      expect(assigns(:scheduled_jobs)).to match hash_including('shared_env_job' => hash_including('class' => 'SomeSharedEnvJob'))
+      expect(assigns(:scheduled_jobs)).to match \
+        hash_including(
+          'shared_env_job' => hash_including('class' => 'SomeSharedEnvJob')
+        )
     end
-
   end
 
   describe 'POST requeue_with_params' do
@@ -69,11 +76,14 @@ describe ResqueWeb::Plugins::ResqueScheduler::SchedulesController, type: :contro
       args = job_config['args'].merge('log_level' => log_level)
       job_config.merge!('args' => args)
 
-      allow(Resque::Scheduler).to receive(:enqueue_from_config).once.with(job_config)
+      allow(Resque::Scheduler).to receive(:enqueue_from_config).once
+        .with(job_config)
 
-      post :requeue_with_params, 'job_name' => job_name, 'log_level' => log_level
+      post :requeue_with_params, 'job_name' => job_name,
+                                 'log_level' => log_level
 
-      expect(response).to redirect_to ResqueWeb::Engine.app.url_helpers.overview_path
+      overview_path = ResqueWeb::Engine.app.url_helpers.overview_path
+      expect(response).to redirect_to overview_path
     end
   end
 
@@ -90,19 +100,17 @@ describe ResqueWeb::Plugins::ResqueScheduler::SchedulesController, type: :contro
           .once.with(Resque.schedule[job_name])
 
         post :requeue, 'job_name' => job_name
-        expect(response).to redirect_to ResqueWeb::Engine.app.url_helpers.overview_path
-
+        overview_path = ResqueWeb::Engine.app.url_helpers.overview_path
+        expect(response).to redirect_to overview_path
       end
     end
 
     context 'with a job that has defined params' do
-
       it 'renders a form for the params to be entered' do
         job_name = 'job_with_params'
         post :requeue, 'job_name' => job_name
         expect(response).to render_template 'requeue-params'
       end
-
     end
   end
 
@@ -113,19 +121,17 @@ describe ResqueWeb::Plugins::ResqueScheduler::SchedulesController, type: :contro
     end
 
     context 'with a static schedule' do
-
       before do
         allow(Resque::Scheduler).to receive(:dynamic).and_return(false)
       end
 
       it 'does not delete the job' do
-        params = {job_name: 'job_with_params'}
+        params = { job_name: 'job_with_params' }
         delete :destroy, params
 
         msg = 'The job should not have been deleted from redis.'
         expect(Resque.fetch_schedule('job_with_params')).to be_truthy, msg
       end
-
     end
 
     context 'with a dynamic schedule' do
@@ -134,14 +140,15 @@ describe ResqueWeb::Plugins::ResqueScheduler::SchedulesController, type: :contro
       end
 
       it 'redirects to schedule page' do
-        params = {job_name: 'job_with_params'}
+        params = { job_name: 'job_with_params' }
         delete :destroy, params
 
-        expect(response).to redirect_to resque_scheduler_engine_routes.schedules_path
+        expected_path = resque_scheduler_engine_routes.schedules_path
+        expect(response).to redirect_to expected_path
       end
 
       it 'removes job from redis' do
-        params = {job_name: 'job_with_params'}
+        params = { job_name: 'job_with_params' }
         delete :destroy, params
 
         msg = 'The job was not deleted from redis.'

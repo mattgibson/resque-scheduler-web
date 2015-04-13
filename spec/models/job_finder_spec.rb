@@ -1,8 +1,10 @@
-require_relative '../../app/models/resque_web/plugins/resque_scheduler/job_finder'
+require_relative '../../app/models/resque_web/plugins/'\
+                    'resque_scheduler/job_finder'
 
 describe ResqueWeb::Plugins::ResqueScheduler::JobFinder do
-
-  let(:non_matching_finder) { ResqueWeb::Plugins::ResqueScheduler::JobFinder.new('donkey') }
+  let(:non_matching_finder) do
+    described_class.new('donkey')
+  end
 
   after do
     Resque.reset_delayed_queue
@@ -10,9 +12,10 @@ describe ResqueWeb::Plugins::ResqueScheduler::JobFinder do
   end
 
   context 'with a scheduled job queued in the future' do
-
     let(:time_in_future) { Time.now + 60 }
-    let(:matching_finder) { ResqueWeb::Plugins::ResqueScheduler::JobFinder.new('ivar') }
+    let(:matching_finder) do
+      described_class.new('ivar')
+    end
 
     before do
       Resque.enqueue_at(time_in_future, SomeIvarJob)
@@ -31,24 +34,25 @@ describe ResqueWeb::Plugins::ResqueScheduler::JobFinder do
     end
 
     it 'sets the timestamp for the delayed scheduled jobs' do
-      expect(matching_finder.find_jobs.first['timestamp']).to eq time_in_future.to_i
+      first_job_timestamp = matching_finder.find_jobs.first['timestamp']
+      expect(first_job_timestamp).to eq time_in_future.to_i
     end
   end
 
   context 'with a job currently in the queue' do
-
-    let(:matching_finder) { ResqueWeb::Plugins::ResqueScheduler::JobFinder.new('quick') }
+    let(:matching_finder) do
+      described_class.new('quick')
+    end
 
     before do
       Resque.enqueue(SomeQuickJob)
     end
 
     it 'returns an empty result set with a nil search term' do
-      finder = ResqueWeb::Plugins::ResqueScheduler::JobFinder.new(nil)
-      expect(finder.find_jobs).to be_empty
+      expect(described_class.new(nil).find_jobs).to be_empty
     end
 
-    it 'should find matching queued job' do
+    it 'finds a matching queued job' do
       expect(matching_finder.find_jobs.first['class']).to eq 'SomeQuickJob'
     end
 
@@ -64,5 +68,4 @@ describe ResqueWeb::Plugins::ResqueScheduler::JobFinder do
       expect(non_matching_finder.find_jobs).to be_empty
     end
   end
-
 end

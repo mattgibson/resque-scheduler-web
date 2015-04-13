@@ -7,7 +7,6 @@ module ResqueWeb
       # the jobs to be destroyed. Otherwise, the jobs can be manually queued
       # for immediate execution.
       class SchedulesController < ResqueWeb::ApplicationController
-
         include Resque::Scheduler::Server::HelperMethods
 
         # GET /schedule

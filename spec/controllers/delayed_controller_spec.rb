@@ -1,6 +1,7 @@
 require 'rails_helper'
 
-describe ResqueWeb::Plugins::ResqueScheduler::DelayedController, type: :controller do
+describe ResqueWeb::Plugins::ResqueScheduler::DelayedController,
+         type: :controller do
   routes { ResqueWeb::Plugins::ResqueScheduler::Engine.routes }
 
   let(:some_time_in_the_future) { Time.now + 3600 }
@@ -33,7 +34,6 @@ describe ResqueWeb::Plugins::ResqueScheduler::DelayedController, type: :controll
   end
 
   describe 'GET jobs_klass' do
-
     shared_examples 'a delayed job class request' do
       it 'is a 200' do
         expect(response).to be_success
@@ -63,26 +63,24 @@ describe ResqueWeb::Plugins::ResqueScheduler::DelayedController, type: :controll
   end
 
   describe 'GET search' do
-
     shared_examples 'a successful search request' do
       it 'is a 200' do
         expect(response).to be_success
       end
 
       it 'see the scheduled job timestamp' do
-        expect(assigns(:jobs)).to include(hash_including 'class' => 'SomeIvarJob')
+        expect(assigns(:jobs)).to \
+          include(hash_including 'class' => 'SomeIvarJob')
       end
     end
 
     context 'with a delayed job scheduled for the future' do
-
       before do
         Resque.enqueue_at(some_time_in_the_future, SomeIvarJob)
         post :search, 'search' => 'ivar'
       end
 
       it_behaves_like 'a successful search request'
-
     end
 
     context 'with a job in the queue now' do
@@ -92,7 +90,6 @@ describe ResqueWeb::Plugins::ResqueScheduler::DelayedController, type: :controll
       end
 
       it_behaves_like 'a successful search request'
-
     end
   end
 

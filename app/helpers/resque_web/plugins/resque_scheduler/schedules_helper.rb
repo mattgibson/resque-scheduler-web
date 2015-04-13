@@ -3,7 +3,6 @@ module ResqueWeb
     module ResqueScheduler
       # Helper methods for the schedule UI
       module SchedulesHelper
-
         # Tells us whether this job is scheduled for e.g. the production env.
         # Jobs for other environments may be in Redis but should be ignored.
         #
@@ -21,7 +20,6 @@ module ResqueWeb
         def rails_env(name)
           Resque.schedule[name]['rails_env']
         end
-
 
         # Outputs a human readable string showing the schedule for a job when it
         # it configured for every X interval.
@@ -56,7 +54,6 @@ module ResqueWeb
           end
         end
 
-
         # Retrieves the class name of the job from the job config and returns it
         #
         # @param [Hash] config
@@ -75,7 +72,7 @@ module ResqueWeb
         # @return [String]
         def queue_from_class_name(class_name)
           Resque.queue_from_class(
-              Resque::Scheduler::Util.constantize(class_name)
+            Resque::Scheduler::Util.constantize(class_name)
           )
         end
       end

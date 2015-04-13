@@ -1,4 +1,4 @@
-require "resque/scheduler/web/version"
+require 'resque/scheduler/web/version'
 
 require 'resque_web'
 require 'resque/scheduler'

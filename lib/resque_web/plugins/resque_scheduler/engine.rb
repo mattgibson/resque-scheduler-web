@@ -3,6 +3,7 @@ require 'resque_web'
 module ResqueWeb
   module Plugins
     module ResqueScheduler
+      # Main engine class for the Resque Scheduler Web plugin.
       class Engine < ::Rails::Engine
         isolate_namespace ResqueWeb::Plugins::ResqueScheduler
 

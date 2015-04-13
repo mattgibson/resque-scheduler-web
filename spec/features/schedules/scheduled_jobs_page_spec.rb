@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 feature 'Viewing the schedule page and interacting with it' do
-
   def visit_scheduler_page
     visit resque_scheduler_engine_routes.schedules_path
   end
