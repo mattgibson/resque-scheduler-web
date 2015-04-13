@@ -1,6 +1,7 @@
 module ResqueWeb
   module Plugins
     module ResqueScheduler
+      # Helper methods for the schedule UI
       module SchedulesHelper
 
         # Tells us whether this job is scheduled for e.g. the production env.

@@ -1,6 +1,7 @@
 module ResqueWeb
   module Plugins
     module ResqueScheduler
+      # Helper methods for the delayed jobs UI
       module DelayedHelper
         # Outputs the time in a human readable way.
         #

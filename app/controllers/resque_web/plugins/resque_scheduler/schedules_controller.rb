@@ -3,6 +3,9 @@ require 'resque/scheduler/server'
 module ResqueWeb
   module Plugins
     module ResqueScheduler
+      # Controller for the schedule. If it is dynamic, then the actions allow
+      # the jobs to be destroyed. Otherwise, the jobs can be manually queued
+      # for immediate execution.
       class SchedulesController < ResqueWeb::ApplicationController
 
         include Resque::Scheduler::Server::HelperMethods
