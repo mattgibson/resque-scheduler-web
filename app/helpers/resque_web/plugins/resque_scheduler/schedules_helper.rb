@@ -2,15 +2,31 @@ module ResqueWeb
   module Plugins
     module ResqueScheduler
       module SchedulesHelper
+
+        # Tells us whether this job is scheduled for e.g. the production env.
+        # Jobs for other environments may be in Redis but should be ignored.
+        #
+        # @param [String] name
+        # @return [true, false]
         def scheduled_in_this_env?(name)
           return true if Resque.schedule[name]['rails_env'].nil?
           rails_env(name).split(/[\s,]+/).include?(Resque::Scheduler.env)
         end
 
+        # Returns the Rails env for the Resque schedule
+        #
+        # @param [String] name
+        # @return [String]
         def rails_env(name)
           Resque.schedule[name]['rails_env']
         end
 
+
+        # Outputs a human readable string showing the schedule for a job when it
+        # it configured for every X interval.
+        #
+        # @param [Array] every
+        # @return [String]
         def schedule_interval_every(every)
           every = [*every]
           s = 'every: ' << every.first
@@ -24,6 +40,11 @@ module ResqueWeb
           s << meta.join(', ') << ')'
         end
 
+        # Outputs a human readable string for the UI, showing when the job is
+        # scheduled.
+        #
+        # @param [Hash] config
+        # @return [String]
         def schedule_interval(config)
           if config['every']
             schedule_interval_every(config['every'])
