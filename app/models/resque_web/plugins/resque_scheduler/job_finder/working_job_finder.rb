@@ -37,6 +37,8 @@ module ResqueWeb
             end
           end
 
+          protected
+
           def workers_with_jobs_that_match_search_term
             all_working_jobs.select do |w|
               w.job &&
@@ -44,8 +46,6 @@ module ResqueWeb
                 w.job['payload']['class'].downcase.include?(search_term)
             end
           end
-
-          protected
 
           def all_working_jobs
             [*Resque.working]
