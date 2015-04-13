@@ -9,11 +9,15 @@ module ResqueWeb
 
           # The search term will be used to match against the class name of any
           # jobs that are currently being processed by any of the workers.
+          #
+          # @param search_term [String]
           def initialize(search_term)
             @search_term = search_term
           end
 
-          # Returns an array of hashes.
+          # Finds all jobs that match the search term provided when the class
+          # was instantiated.
+          #
           # [
           #   {
           #     'class' => 'SomeClass',
@@ -21,6 +25,9 @@ module ResqueWeb
           #     'where_at' => 'working'
           #   }
           # ]
+          #
+          # @return [Array] Returns an array of hashes.
+          #
           def find_jobs
             workers_with_jobs_that_match_search_term.collect do |w|
               w.job['payload'].merge(
