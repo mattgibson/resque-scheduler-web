@@ -5,8 +5,11 @@ module ResqueWeb
       # being processed, in the queue, or delayed.
       class JobFinder
 
+        # The search term that the user entered.
         attr_accessor :search_term
 
+
+        # @param [String] search_term
         def initialize(search_term = nil)
           @search_term = search_term || ''
           @search_term.downcase!

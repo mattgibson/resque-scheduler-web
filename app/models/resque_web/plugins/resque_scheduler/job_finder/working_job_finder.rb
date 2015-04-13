@@ -5,6 +5,7 @@ module ResqueWeb
         # This class finds working jobs that Resque is currently processing
         class WorkingJobFinder
 
+          # The terms that the user entered.
           attr_accessor :search_term
 
           # The search term will be used to match against the class name of any
