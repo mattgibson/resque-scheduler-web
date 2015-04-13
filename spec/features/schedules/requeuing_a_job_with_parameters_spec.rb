@@ -33,7 +33,7 @@ feature 'requeuing a job that has defined params' do
     click_button 'Queue now'
 
     expect(current_path).to eq ResqueWeb::Engine.app.url_helpers.overview_path
-    find('.queues .queue a', text: 'quick').click
+    find('.queues .queue a', text: queue_name).click
 
     expect(page).to have_content job_class
     expect(page).to have_css 'td.args', text: /"log_level"=>"info"/

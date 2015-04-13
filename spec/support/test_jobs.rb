@@ -9,25 +9,31 @@ class OngoingJob
   end
 end
 
+# Generic job to use as a base class for the test jobs below.
 class SomeJob
   def self.perform(_repo_id, _path)
   end
 end
 
+# Test job
 class SomeQuickJob < SomeJob
   @queue = :quick
 end
 
+# Test job
 class SomeIvarJob < SomeJob
   @queue = :ivar
 end
 
+# Job for tests where we put it into more than one environment and test that it
+# only shows up for one.
 class SomeSharedEnvJob < SomeJob
   def self.queue
     :shared_job
   end
 end
 
+# Job for tests, where we expect there to be parameters provided.
 class JobWithParams
   @queue = :quick
 
@@ -38,8 +44,9 @@ end
 
 JobWithoutParams = Class.new(JobWithParams)
 
-
+# Test module
 module Foo
+  # Test class
   class Bar
     def self.queue
       'bar'
@@ -47,6 +54,7 @@ module Foo
   end
 end
 
+# This is just a container for a dummy schedule.
 module Test
   RESQUE_SCHEDULE = {
     'job_without_params' => {
@@ -72,6 +80,3 @@ module Test
     }
   }
 end
-
-
-

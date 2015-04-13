@@ -3,6 +3,9 @@ require 'socket'
 require 'timeout'
 require 'fileutils'
 
+# This provides a Redis instance for the test environment. It manages bootup and
+# shutdown etc, whilst preventing conflicts with other things that may be
+# running on the same port.
 class RedisInstance
   class << self
     @running = false
@@ -42,17 +45,16 @@ class RedisInstance
     def post_boot_waiting_and_such
       wait_for_pid
       puts "Booted isolated Redis on #{port} with PID #{pid}."
-
       wait_for_redis_boot
-
-      # Ensure we tear down Redis on Ctrl+C / test failure.
-      at_exit { stop! }
+      at_exit { stop! } # Ensure we tear down Redis on Ctrl+C / test failure.
     end
 
     def ensure_redis_server_present!
-      unless system('redis-server -v')
-        fail "** can't find `redis-server` in your path"
-      end
+      fail "** can't find `redis-server` in your path" unless redis_detected?
+    end
+
+    def redis_detected?
+      system('redis-server -v')
     end
 
     def wait_for_redis_boot
