@@ -20,6 +20,8 @@ module ResqueWeb
           results + queued_jobs_where_class_name_matches_search_term
         end
 
+        protected
+
         def working_jobs_where_class_name_contains_search_term
           WorkingJobFinder.new(search_term).find_jobs
         end
