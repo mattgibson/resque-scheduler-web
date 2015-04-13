@@ -13,6 +13,7 @@ module ResqueWeb
         # paths['app/models'] << 'app/models'
       end
 
+      # Draws the routes for the engine.
       Engine.routes do
         get 'schedule', to: 'schedules#index', as: 'schedules'
         post 'schedule/requeue', to: 'schedules#requeue', as: 'requeue'
@@ -32,10 +33,18 @@ module ResqueWeb
         post '/delayed/clear', to: 'delayed#clear', as: 'clear'
       end
 
+      # provides the path where the engine will live. This is appended after
+      # the main resque-web path.
+      #
+      # @return [String]
       def self.engine_path
         '/scheduler'
       end
 
+      # Tells Resque web what extra tabs to ass to the main navigation at the
+      # top of the resque-web interface.
+      #
+      # @return [Array]
       def self.tabs
         [
           {

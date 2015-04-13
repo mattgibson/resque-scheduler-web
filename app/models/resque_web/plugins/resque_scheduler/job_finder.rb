@@ -8,13 +8,16 @@ module ResqueWeb
         # The search term that the user entered.
         attr_accessor :search_term
 
-
         # @param [String] search_term
         def initialize(search_term = nil)
           @search_term = search_term || ''
           @search_term.downcase!
         end
 
+        # Finds all jobs that match the search term supplied when the class was
+        # initialized.
+        #
+        # @return [Array]
         def find_jobs
           return [] if search_term.empty?
           results = []
