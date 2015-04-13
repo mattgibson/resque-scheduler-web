@@ -43,7 +43,7 @@ module ResqueWeb
         # Outputs a human readable string for the UI, showing when the job is
         # scheduled.
         #
-        # @param [Hash] config
+        # @param [Hash] config Config hash for one job
         # @return [String]
         def schedule_interval(config)
           if config['every']
@@ -55,6 +55,11 @@ module ResqueWeb
           end
         end
 
+
+        # Retrieves the class name of the job from the job config and returns it
+        #
+        # @param [Hash] config
+        # @return [String]
         def schedule_class(config)
           if config['class'].nil? && !config['custom_job_class'].nil?
             config['custom_job_class']
@@ -63,6 +68,10 @@ module ResqueWeb
           end
         end
 
+        # Returns the name of the queue that a given class uses.
+        #
+        # @param [String] class_name
+        # @return [String]
         def queue_from_class_name(class_name)
           Resque.queue_from_class(
               Resque::Scheduler::Util.constantize(class_name)
