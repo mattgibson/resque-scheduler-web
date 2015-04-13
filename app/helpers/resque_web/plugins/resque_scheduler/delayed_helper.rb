@@ -9,7 +9,7 @@ module ResqueWeb
         #   a Time object
         #
         # == Returns:
-        # A string in the follwoing format: 2015-04-12 12:27:05 +0100
+        # A string in the following format: 2015-04-12 12:27:05 +0100
         #
         def format_time(t)
           t.strftime('%Y-%m-%d %H:%M:%S %z')
