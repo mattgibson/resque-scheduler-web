@@ -6,7 +6,7 @@ module ResqueWeb
       # queue, or rescheduled.
       class DelayedController < ResqueWeb::ApplicationController
 
-        # GET /schedules
+        # GET /delayed
         def index
           @start = params[:start].to_i
           @number_to_show = 20

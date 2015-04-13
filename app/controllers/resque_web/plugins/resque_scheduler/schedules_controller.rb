@@ -7,6 +7,7 @@ module ResqueWeb
 
         include Resque::Scheduler::Server::HelperMethods
 
+        # GET /schedule
         def index
           Resque.reload_schedule! if Resque::Scheduler.dynamic
           jobs_in_this_env = Resque.schedule.select do |name|
@@ -18,6 +19,7 @@ module ResqueWeb
           end
         end
 
+        # DELETE /schedule
         def destroy
           if Resque::Scheduler.dynamic
             job_name = params['job_name'] || params[:job_name]
@@ -26,6 +28,7 @@ module ResqueWeb
           redirect_to Engine.app.url_helpers.schedules_path
         end
 
+        # POST /schedule/requeue
         def requeue
           @job_name = params['job_name'] || params[:job_name]
           config = Resque.schedule[@job_name]
@@ -38,6 +41,7 @@ module ResqueWeb
           end
         end
 
+        # POST /schedule/requeue_with_params
         def requeue_with_params
           job_name = params['job_name'] || params[:job_name]
           config = Resque.schedule[job_name]
