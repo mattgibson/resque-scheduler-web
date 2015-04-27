@@ -6,12 +6,6 @@ module ResqueWeb
       # Main engine class for the Resque Scheduler Web plugin.
       class Engine < ::Rails::Engine
         isolate_namespace ResqueWeb::Plugins::ResqueScheduler
-
-        # paths['app'] << 'app'
-        # paths['app/helpers'] << 'app/helpers'
-        # paths['app/views'] << 'app/views'
-        # paths['app/controllers'] << 'app/controllers'
-        # paths['app/models'] << 'app/models'
       end
 
       # Draws the routes for the engine.
