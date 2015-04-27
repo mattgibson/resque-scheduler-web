@@ -14,6 +14,8 @@ module ResqueWeb
         end
 
         # GET /delayed/jobs/:klass
+        # Shows us all of the jobs of this type, with these args. Accessed by
+        # clicking the 'All schedules' link next to a delayed job.
         def jobs_klass
           klass = Resque::Scheduler::Util.constantize(params[:klass])
           @args = JSON.load(URI.decode(params[:args]))
