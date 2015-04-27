@@ -23,7 +23,7 @@
     <th>All schedules</th>
   </tr>
   <% @timestamps.each do |timestamp| %>
-    <tr>
+    <tr class="delayed-job">
       <td>
         <form action="<%= queue_now_path %>" method="post">
           <input type="hidden" name="timestamp" value="<%= timestamp.to_i %>">
