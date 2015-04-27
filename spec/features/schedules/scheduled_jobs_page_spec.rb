@@ -41,6 +41,13 @@ feature 'Viewing the schedule page and interacting with it' do
     visit_scheduler_page
   end
 
+  after do
+    Resque.reset_delayed_queue
+    Resque.queues.each { |q| Resque.remove_queue q }
+    Resque.schedule = {}
+    Resque::Scheduler.env = 'test'
+  end
+
   it 'Link to Schedule page in navigation works' do
     visit '/resque_web'
     click_link 'Schedule'

@@ -9,6 +9,7 @@ feature 'requeuing a job that has defined params' do
   after do
     Resque.reset_delayed_queue
     Resque.queues.each { |q| Resque.remove_queue q }
+    Resque.schedule = {}
   end
 
   # Given I have a job which requires params in the schedule
