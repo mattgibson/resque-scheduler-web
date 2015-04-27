@@ -12,10 +12,9 @@ lib/bundler/man
 pkg
 rdoc
 spec/reports
-test/tmp
-test/dummy/log
+spec/tmp
 spec/dummy/log
-test/version_tmp
+spec/version_tmp
 tmp
 *.bundle
 *.so
