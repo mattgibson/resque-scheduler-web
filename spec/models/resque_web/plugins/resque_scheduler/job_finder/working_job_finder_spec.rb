@@ -1,4 +1,4 @@
-require_relative '../../../app/models/resque_web/plugins/'\
+require_relative '../../../../../../app/models/resque_web/plugins/'\
                    'resque_scheduler/job_finder/working_job_finder'
 
 describe ResqueWeb::Plugins::ResqueScheduler::JobFinder::WorkingJobFinder do

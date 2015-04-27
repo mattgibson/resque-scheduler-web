@@ -8,11 +8,6 @@ require 'fileutils'
 # running on the same port.
 class RedisInstance
   class << self
-    @running = false
-    @port = nil
-    @pid = nil
-    @waiting = false
-
     def run_if_needed!
       run! unless @running
     end
@@ -23,7 +18,6 @@ class RedisInstance
       reassign_redis_clients
       start_redis_server
       post_boot_waiting_and_such
-
       @running = true
     end
 
@@ -98,7 +92,7 @@ class RedisInstance
     end
 
     def pid_file
-      '/tmp/redis-scheduler-test.pid'
+      '/tmp/resque-scheduler-web-test.pid'
     end
 
     def config
@@ -112,7 +106,6 @@ class RedisInstance
     # Returns a random port in the upper (10000-65535) range.
     def random_port
       ports = (10_000..65_535).to_a
-
       loop do
         port = ports[rand(ports.size)]
         return port if port_available?('127.0.0.1', port)
