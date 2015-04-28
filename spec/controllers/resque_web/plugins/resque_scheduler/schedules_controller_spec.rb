@@ -4,6 +4,10 @@ describe ResqueWeb::Plugins::ResqueScheduler::SchedulesController,
          type: :controller do
   routes { ResqueWeb::Plugins::ResqueScheduler::Engine.routes }
 
+  after do
+    reset_the_resque_schedule
+  end
+
   describe 'GET index' do
     before do
       Resque::Scheduler.env = 'production'

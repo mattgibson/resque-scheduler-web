@@ -35,6 +35,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'codeclimate-test-reporter', '~> 0'
   spec.add_development_dependency 'rubocop', '~> 0'
   spec.add_development_dependency 'rubocop-rspec', '~> 1.0'
+  spec.add_development_dependency 'launchy'
   # Avoids non-thread-safe error.
   spec.add_development_dependency 'sass', '~> 3.4'
 end

@@ -7,8 +7,7 @@ describe ResqueWeb::Plugins::ResqueScheduler::JobFinder do
   end
 
   after do
-    Resque.reset_delayed_queue
-    Resque.queues.each { |q| Resque.remove_queue q }
+    reset_the_resque_schedule
   end
 
   context 'with a scheduled job queued in the future' do

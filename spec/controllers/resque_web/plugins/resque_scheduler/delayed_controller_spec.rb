@@ -7,8 +7,7 @@ describe ResqueWeb::Plugins::ResqueScheduler::DelayedController,
   let(:some_time_in_the_future) { Time.now + 3600 }
 
   after do
-    Resque.reset_delayed_queue
-    Resque.queues.each { |q| Resque.remove_queue q }
+    reset_the_resque_schedule
   end
 
   describe 'GET index' do

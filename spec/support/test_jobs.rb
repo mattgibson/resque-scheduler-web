@@ -42,7 +42,9 @@ class JobWithParams
   end
 end
 
-JobWithoutParams = Class.new(JobWithParams)
+JobWithoutParams = Class.new(JobWithParams) do
+  @queue = :quick
+end
 
 # Test module
 module Foo
