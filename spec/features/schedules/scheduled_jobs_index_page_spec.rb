@@ -54,16 +54,16 @@ feature 'Viewing the schedule page and interacting with it' do
     assert page.has_css? 'h1', 'Schedule'
   end
 
-  it '200' do
+  it 'has the correct title' do
     assert page.has_css?('h1', 'Schedule')
   end
 
-  it 'see the scheduled job' do
+  it 'shows the scheduled job' do
     assert page.body.include?('SomeIvarJob')
   end
 
   it 'excludes jobs for other envs' do
-    assert !page.body.include?('SomeFancyJob')
+    refute page.body.include?('SomeFancyJob')
   end
 
   it 'includes job used in multiple environments' do
@@ -81,6 +81,6 @@ feature 'Viewing the schedule page and interacting with it' do
     allow(Resque::Scheduler).to receive(:dynamic).and_return(false)
     visit_scheduler_page
 
-    assert !page.body.include?('Delete')
+    refute page.body.include?('Delete')
   end
 end
