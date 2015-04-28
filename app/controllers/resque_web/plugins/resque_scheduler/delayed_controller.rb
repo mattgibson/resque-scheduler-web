@@ -56,6 +56,9 @@ module ResqueWeb
         # GET /delayed/:timestamp
         def timestamp
           @timestamp = params[:timestamp].to_i
+          @start = params[:start].to_i
+          @size = Resque.delayed_timestamp_size(@timestamp)
+          @jobs = Resque.delayed_timestamp_peek(@timestamp, @start, 20)
         end
       end
     end

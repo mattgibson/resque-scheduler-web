@@ -31,13 +31,13 @@
         </form>
       </td>
       <td><a href="<%= delayed_path timestamp: timestamp %>"><%= format_time(Time.at(timestamp)) %></a></td>
-      <td><%= delayed_timestamp_size = Resque.delayed_timestamp_size(timestamp) %></td>
+      <td class="job-count"><%= delayed_timestamp_size = Resque.delayed_timestamp_size(timestamp) %></td>
       <% job = Resque.delayed_timestamp_peek(timestamp, 0, 1).first %>
       <td>
         <% if job && delayed_timestamp_size == 1 %>
           <%= h(job['class']) %>
         <% else %>
-          <a href="<%= delayed_path timestamp: timestamp %>">see details</a>
+          <a href="<%= timestamp_path timestamp: timestamp %>">see details</a>
         <% end %>
       </td>
       <td><%= h(job['args'].inspect) if job && delayed_timestamp_size == 1 %></td>
