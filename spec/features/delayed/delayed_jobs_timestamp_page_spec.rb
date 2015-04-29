@@ -30,10 +30,6 @@ feature 'seeing a summary of the delayed jobs for a timestamp on the index' do
     all('.timestamp-link a').first.click
   end
 
-  def given_there_is_a_delayed_job
-    Resque.enqueue_at(some_time_in_the_future, SomeIvarJob)
-  end
-
   def given_there_are_two_delayed_jobs_enqueued_at_the_same_time
     Resque.enqueue_at(some_time_in_the_future, JobWithParams, argument: 'thingy')
     Resque.enqueue_at(some_time_in_the_future, JobWithoutParams)

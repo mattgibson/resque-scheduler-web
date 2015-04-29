@@ -1,3 +1,5 @@
+require 'active_job'
+
 # Allows us to test that we can find working jobs
 class OngoingJob
   def self.queue
@@ -44,6 +46,18 @@ end
 
 JobWithoutParams = Class.new(JobWithParams) do
   @queue = :quick
+end
+
+class ActiveJobTest < ActiveJob::Base
+  queue_as :test_queue
+
+  def self.queue
+    queue_name
+  end
+
+  def perform
+
+  end
 end
 
 # Test module

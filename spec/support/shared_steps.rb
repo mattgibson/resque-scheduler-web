@@ -23,5 +23,9 @@ module SharedFunctionsForFeatures
     Resque.enqueue_at(some_time_in_the_future, SomeIvarJob)
     Resque.enqueue_at(some_other_time_in_the_future, JobWithoutParams)
   end
+
+  def given_there_is_a_delayed_job
+    Resque.enqueue_at(some_time_in_the_future, SomeIvarJob)
+  end
 end
 
