@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 feature 'requeuing a job that has defined params' do
+
+  include SharedFunctionsForFeatures
+
   before do
     given_i_have_a_job_which_requires_params_in_the_schedule
   end
@@ -12,10 +15,6 @@ feature 'requeuing a job that has defined params' do
     and_i_should_see_the_job_in_the_queue
     when_i_click_on_the_link_to_the_queue
     then_i_should_see_details_of_the_job_on_the_page
-  end
-
-  after do
-    reset_the_resque_schedule
   end
 
   let(:job_name) { 'job_with_params' }

@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 feature 'Viewing the schedule page and interacting with it' do
+
+  include SharedFunctionsForFeatures
+
   before do
     given_the_resque_scheduler_is_using_the_production_environment
     and_there_are_several_jobs_in_the_schedule
@@ -21,10 +24,6 @@ feature 'Viewing the schedule page and interacting with it' do
 
   scenario 'the index includes job used in multiple environments' do
     then_the_page_should_have_the_name_of_jobs_in_both_this_and_other_envs
-  end
-
-  after do
-    reset_the_resque_schedule
   end
 
   def given_the_resque_scheduler_is_using_the_production_environment

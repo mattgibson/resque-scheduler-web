@@ -2,6 +2,8 @@ require 'rails_helper'
 
 feature 'seeing a summary of the delayed jobs for a timestamp on the index' do
 
+  include SharedFunctionsForFeatures
+
   scenario 'delayed jobs show up on the page when at the same times' do
     given_there_are_two_delayed_jobs_enqueued_at_the_same_time
     when_i_visit_the_delayed_jobs_page
@@ -16,12 +18,6 @@ feature 'seeing a summary of the delayed jobs for a timestamp on the index' do
     when_i_click_on_the_timestamp_next_to_the_job
     then_i_should_be_on_the_timestamps_page
   end
-
-  after do
-    reset_the_resque_schedule
-  end
-
-  let(:some_time_in_the_future) { Time.now + 3600 }
 
   def then_i_should_be_on_the_timestamps_page
     expected_path = resque_scheduler_engine_routes.timestamp_path(

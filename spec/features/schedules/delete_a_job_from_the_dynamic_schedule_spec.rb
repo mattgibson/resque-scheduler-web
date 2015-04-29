@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 feature 'deleting a job from the dynamic schedule' do
+
+  include SharedFunctionsForFeatures
+
   before do
     given_there_are_two_jobs_in_the_scheduler
     and_the_schedule_is_set_up_to_be_dyamic
@@ -23,10 +26,6 @@ feature 'deleting a job from the dynamic schedule' do
     when_i_delete_the_job_from_the_ui
     then_i_should_be_on_the_scheduler_page
     and_the_job_should_no_longer_be_present_in_the_resque_schedule
-  end
-
-  after do
-    reset_the_resque_schedule
   end
 
   def and_the_schedule_is_set_up_to_be_dyamic
