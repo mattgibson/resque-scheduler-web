@@ -1,13 +1,37 @@
 require 'rails_helper'
 
 feature 'Viewing the schedule page and interacting with it' do
-  def visit_scheduler_page
-    visit resque_scheduler_engine_routes.schedules_path
+  before do
+    given_the_resque_scheduler_is_using_the_production_environment
+    and_there_are_several_jobs_in_the_schedule
+    when_i_visit_the_scheduler_page
   end
 
-  before do
-    Resque::Scheduler.env = 'production'
+  scenario 'the page has the correct title' do
+    then_the_page_should_have_the_correct_title
+  end
 
+  scenario 'the index shows the scheduled job' do
+    then_the_page_should_have_the_class_name_of_the_job_in_this_env
+  end
+
+  scenario 'the index excludes jobs for other envs' do
+    then_the_page_should_not_have_the_name_of_jobs_from_other_envs
+  end
+
+  scenario 'the index includes job used in multiple environments' do
+    then_the_page_should_have_the_name_of_jobs_in_both_this_and_other_envs
+  end
+
+  after do
+    reset_the_resque_schedule
+  end
+
+  def given_the_resque_scheduler_is_using_the_production_environment
+    Resque::Scheduler.env = 'production'
+  end
+
+  def and_there_are_several_jobs_in_the_schedule
     Resque.schedule = {
       'some_ivar_job' => {
         'cron' => '* * * * *',
@@ -38,46 +62,34 @@ feature 'Viewing the schedule page and interacting with it' do
       }
     }
     Resque::Scheduler.load_schedule!
-    visit_scheduler_page
   end
 
-  after do
-    reset_the_resque_schedule
-  end
-
-  it 'Link to Schedule page in navigation works' do
+  def when_i_visit_the_resque_web_home_page
     visit '/resque_web'
-    click_link 'Schedule'
-    assert page.has_css? 'h1', 'Schedule'
   end
 
-  it 'has the correct title' do
+  def and_i_click_the_schedule_link
+    click_link 'Schedule'
+  end
+
+  def then_the_page_should_have_the_correct_title
     assert page.has_css?('h1', 'Schedule')
   end
 
-  it 'shows the scheduled job' do
+  def then_the_page_should_have_the_class_name_of_the_job_in_this_env
     assert page.body.include?('SomeIvarJob')
   end
 
-  it 'excludes jobs for other envs' do
+  def then_the_page_should_not_have_the_name_of_jobs_from_other_envs
     refute page.body.include?('SomeFancyJob')
   end
 
-  it 'includes job used in multiple environments' do
+  def then_the_page_should_have_the_name_of_jobs_in_both_this_and_other_envs
     assert page.body.include?('SomeSharedEnvJob')
   end
 
-  it 'allows delete when dynamic' do
-    allow(Resque::Scheduler).to receive(:dynamic).and_return(true)
-    visit_scheduler_page
-
-    assert page.body.include?('Delete')
+  def when_i_visit_the_scheduler_page
+    visit resque_scheduler_engine_routes.schedules_path
   end
 
-  it "doesn't allow delete when static" do
-    allow(Resque::Scheduler).to receive(:dynamic).and_return(false)
-    visit_scheduler_page
-
-    refute page.body.include?('Delete')
-  end
 end

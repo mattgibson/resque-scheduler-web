@@ -2,6 +2,31 @@ require 'rails_helper'
 
 feature 'requeuing a job that has no params' do
   before do
+    given_i_have_a_job_which_requires_params_in_the_schedule
+  end
+
+  scenario 'I am prompted to enter the params required for the requeued job' do
+    when_i_visit_the_schedules_page
+    and_i_requeue_the_job
+    then_i_should_be_on_the_overview_page
+    and_i_should_see_the_job_in_the_queue
+    when_i_click_through_to_the_queue_page
+    then_i_should_see_the_details_of_the_job_on_the_page
+  end
+
+  after do
+    reset_the_resque_schedule
+  end
+
+  let(:queue_name) { 'quick' }
+  let(:job_name) { 'job_without_params' }
+  let(:job_class) { 'JobWithoutParams' }
+
+  def when_i_visit_the_schedules_page
+    visit resque_scheduler_engine_routes.schedules_path
+  end
+
+  def given_i_have_a_job_which_requires_params_in_the_schedule
     Resque.schedule = {
       'job_without_params' => {
         'cron' => '* * * * *',
@@ -15,29 +40,24 @@ feature 'requeuing a job that has no params' do
     Resque::Scheduler.load_schedule!
   end
 
-  after do
-    reset_the_resque_schedule
+  def and_i_requeue_the_job
+    click_button "requeue_job_#{job_name}"
   end
 
-  # Given I have a job which requires params in the schedule
-  # When I press the requeue button
-  # Then I should be on the overview page
-  # And I should see the job in the queue
-  # When I visit the queue page
-  # Then I should see the job on the page with the new params
-  scenario 'I am prompted to enter the params required for the requeued job' do
-    job_name = 'job_without_params'
-    queue_name = 'quick'
-    job_class = 'JobWithoutParams'
-
-    visit resque_scheduler_engine_routes.schedules_path
-    click_button "requeue_job_#{job_name}"
-
+  def then_i_should_be_on_the_overview_page
     expect(current_path).to eq ResqueWeb::Engine.app.url_helpers.overview_path
+  end
+
+  def and_i_should_see_the_job_in_the_queue
     expect(page).to have_content "#{queue_name} 1"
+  end
 
+  def when_i_click_through_to_the_queue_page
     find('.queues .queue a', text: queue_name).click
+  end
 
+  def then_i_should_see_the_details_of_the_job_on_the_page
     expect(page).to have_content job_class
   end
+
 end

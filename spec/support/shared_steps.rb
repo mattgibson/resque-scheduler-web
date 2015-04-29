@@ -1,0 +1,3 @@
+def when_i_visit_the_delayed_jobs_page
+  visit resque_scheduler_engine_routes.delayed_path
+end

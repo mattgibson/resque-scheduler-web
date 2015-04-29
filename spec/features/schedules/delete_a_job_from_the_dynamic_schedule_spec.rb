@@ -1,12 +1,39 @@
 require 'rails_helper'
 
 feature 'deleting a job from the dynamic schedule' do
-
-  def visit_scheduler_page
-    visit resque_scheduler_engine_routes.schedules_path
+  before do
+    given_there_are_two_jobs_in_the_scheduler
+    and_the_schedule_is_set_up_to_be_dyamic
+    when_i_visit_the_scheduler_page
   end
 
-  before do
+  scenario 'the job disappears from the UI' do
+    when_i_delete_the_job_from_the_ui
+    then_i_should_be_on_the_scheduler_page
+    and_the_job_should_not_be_present_in_the_ui
+  end
+
+  scenario 'the other job remains in the UI' do
+    when_i_delete_the_job_from_the_ui
+    then_i_should_be_on_the_scheduler_page
+    and_the_other_job_should_still_be_present_in_the_ui
+  end
+
+  scenario 'the job is removed from the resque backend' do
+    when_i_delete_the_job_from_the_ui
+    then_i_should_be_on_the_scheduler_page
+    and_the_job_should_no_longer_be_present_in_the_resque_schedule
+  end
+
+  after do
+    reset_the_resque_schedule
+  end
+
+  def and_the_schedule_is_set_up_to_be_dyamic
+    allow(Resque::Scheduler).to receive(:dynamic).and_return(true)
+  end
+
+  def given_there_are_two_jobs_in_the_scheduler
     Resque.schedule = {
       'some_ivar_job' => {
         'cron' => '* * * * *',
@@ -24,45 +51,30 @@ feature 'deleting a job from the dynamic schedule' do
         }
       }
     }
-    allow(Resque::Scheduler).to receive(:dynamic).and_return(true)
     Resque::Scheduler.load_schedule!
-    visit_scheduler_page
   end
 
-  after do
-    reset_the_resque_schedule
+  def when_i_visit_the_scheduler_page
+    visit resque_scheduler_engine_routes.schedules_path
   end
 
-  # Given there is a job in the scheduler
-  # And the schedule is set up to be dynamic
-  # When I delete the job from the UI
-  # Then I should be on the schedule page
-  # And the job should no longer be present
-  scenario 'the job disappears from the UI' do
+  def when_i_delete_the_job_from_the_ui
     find('#job_some_ivar_job .delete-button').click
-    expect(current_path).to eq resque_scheduler_engine_routes.schedules_path
-    expect(page).to_not have_css '#job_some_ivar_job'
   end
 
-  # Given there are two jobs in the scheduler
-  # And the schedule is set up to be dynamic
-  # When I delete the job from the UI
-  # Then I should be on the schedule page
-  # And the other job should still be present
-  scenario 'the other job remains in the UI' do
-    find('#job_some_ivar_job .delete-button').click
+  def then_i_should_be_on_the_scheduler_page
     expect(current_path).to eq resque_scheduler_engine_routes.schedules_path
+  end
+
+  def and_the_job_should_no_longer_be_present_in_the_resque_schedule
+    expect(Resque.schedule).to_not have_key 'some_ivar_job'
+  end
+
+  def and_the_other_job_should_still_be_present_in_the_ui
     expect(page).to have_css '#job_some_other_job'
   end
 
-  # Given there is a job in the scheduler
-  # And the schedule is set up to be dynamic
-  # When I delete the job from the UI
-  # Then I should be on the schedule page
-  # And the job should no longer be present in the Resque schedule
-  scenario 'the job is removed from the resque backend' do
-    find('#job_some_ivar_job .delete-button').click
-    expect(current_path).to eq resque_scheduler_engine_routes.schedules_path
-    expect(Resque.schedule).to_not have_key 'some_ivar_job'
+  def and_the_job_should_not_be_present_in_the_ui
+    expect(page).to_not have_css '#job_some_ivar_job'
   end
 end

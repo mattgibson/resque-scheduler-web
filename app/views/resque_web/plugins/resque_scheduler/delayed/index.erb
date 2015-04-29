@@ -30,7 +30,7 @@
           <input type="submit" value="Queue now" class="btn btn-default">
         </form>
       </td>
-      <td><a href="<%= delayed_path timestamp: timestamp %>"><%= format_time(Time.at(timestamp)) %></a></td>
+      <td class="timestamp-link"><a href="<%= timestamp_path timestamp: timestamp %>"><%= format_time(Time.at(timestamp)) %></a></td>
       <td class="job-count"><%= delayed_timestamp_size = Resque.delayed_timestamp_size(timestamp) %></td>
       <% job = Resque.delayed_timestamp_peek(timestamp, 0, 1).first %>
       <td>

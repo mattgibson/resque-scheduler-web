@@ -6,6 +6,7 @@ ENV['RAILS_ENV'] = 'test'
 require 'resque'
 require 'resque-scheduler'
 require_relative 'support/functions'
+require_relative 'support/shared_steps'
 
 
 Resque::Scheduler.configure do |c|

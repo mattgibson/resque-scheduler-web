@@ -1,6 +1,7 @@
-<h1>Delayed jobs scheduled for <%= params[:klass] %> (<%= @args %>)</h1>
+<h1>Delayed jobs scheduled for class: <%= params[:klass] %></h1>
+<h2>With params: <%= @args %></h2>
 
-<table class='jobs'>
+<table class='jobs table table-bordered'>
   <tr>
     <th>Timestamp</th>
   </tr>
