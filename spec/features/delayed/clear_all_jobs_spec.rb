@@ -18,7 +18,7 @@ feature 'clearing all of the delayed jobs' do
   end
 
   def and_i_click_the_clear_all_jobs_button
-    click_button 'Clear Delayed Jobs'
+    click_button 'Clear All Delayed Jobs'
   end
 
 end

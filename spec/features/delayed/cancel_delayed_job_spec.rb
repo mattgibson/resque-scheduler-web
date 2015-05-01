@@ -12,10 +12,6 @@ feature 'cancelling a delayed job' do
     and_the_job_should_not_be_present_on_the_page
   end
 
-  def given_there_is_a_delayed_job
-    Resque.enqueue_at(some_time_in_the_future, SomeIvarJob)
-  end
-
   def and_i_cancel_the_job
     click_button 'Cancel'
   end

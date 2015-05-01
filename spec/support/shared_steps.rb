@@ -27,5 +27,21 @@ module SharedFunctionsForFeatures
   def given_there_is_a_delayed_job
     Resque.enqueue_at(some_time_in_the_future, SomeIvarJob)
   end
+
+  def then_i_should_be_on_the_overview_page
+    expect(current_path).to eq ResqueWeb::Engine.app.url_helpers.overview_path
+  end
+
+  def and_i_should_see_the_job_in_the_queue
+    expect(page).to have_content "#{queue_name} 1"
+  end
+
+  def when_i_click_through_to_the_queue_page
+    find('.queues .queue a', text: queue_name).click
+  end
+
+  def then_i_should_see_the_details_of_the_job_on_the_page
+    expect(page).to have_content job_class
+  end
 end
 

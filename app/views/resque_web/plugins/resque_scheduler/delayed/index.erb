@@ -7,53 +7,58 @@
   Server local time: <%= Time.now %>
 </p>
 
-<p class='sub'>
-  <% finish = [@start + @number_to_show, @total_number_of_delayed_jobs].min %>
-  Showing <%= @start %> to <%= finish %> of
-  <b><%= @total_number_of_delayed_jobs %></b> timestamps
-</p>
+<% if @timestamps.any? %>
 
-<table class="table table-bordered">
-  <tr>
-    <th></th>
-    <th>Timestamp</th>
-    <th>Job count</th>
-    <th>Class</th>
-    <th>Args</th>
-    <th>All schedules</th>
-  </tr>
-  <% @timestamps.each do |timestamp| %>
-    <tr class="delayed-job">
-      <td>
-        <form action="<%= queue_now_path %>" method="post">
-          <input type="hidden" name="timestamp" value="<%= timestamp.to_i %>">
-          <input type="submit" value="Queue now" class="btn btn-default">
-        </form>
-      </td>
-      <td class="timestamp-link"><a href="<%= timestamp_path timestamp: timestamp %>"><%= format_time(Time.at(timestamp)) %></a></td>
-      <td class="job-count"><%= delayed_timestamp_size = Resque.delayed_timestamp_size(timestamp) %></td>
-      <% job = Resque.delayed_timestamp_peek(timestamp, 0, 1).first %>
-      <td>
-        <% if job && delayed_timestamp_size == 1 %>
-          <%= h(job['class']) %>
-        <% else %>
-          <a href="<%= timestamp_path timestamp: timestamp %>">see details</a>
-        <% end %>
-      </td>
-      <td><%= h(job['args'].inspect) if job && delayed_timestamp_size == 1 %></td>
-      <td>
-        <% if job %>
-          <a href="<%= delayed_job_class_path klass: job['class'], args: URI.encode(job['args'].to_json) %>">All schedules</a>
-        <% end %>
-      </td>
+  <p class='sub'>
+    <% finish = [@start + @number_to_show, @total_number_of_delayed_jobs].min %>
+    Showing <%= @start %> to <%= finish %> of
+    <b><%= @total_number_of_delayed_jobs %></b> timestamps
+  </p>
+
+  <table class="table table-bordered">
+    <tr>
+      <th></th>
+      <th>Timestamp</th>
+      <th>Job count</th>
+      <th>Class</th>
+      <th>Args</th>
+      <th>All schedules</th>
     </tr>
-  <% end %>
-</table>
+    <% @timestamps.each do |timestamp| %>
+      <tr class="delayed-job">
+        <td>
+          <form action="<%= queue_now_path %>" method="post">
+            <input type="hidden" name="timestamp" value="<%= timestamp.to_i %>">
+            <input type="submit" value="Queue now" class="btn btn-default">
+          </form>
+        </td>
+        <td class="timestamp-link"><a href="<%= timestamp_path timestamp: timestamp %>"><%= format_time(Time.at(timestamp)) %></a></td>
+        <td class="job-count"><%= delayed_timestamp_size = Resque.delayed_timestamp_size(timestamp) %></td>
+        <% job = Resque.delayed_timestamp_peek(timestamp, 0, 1).first %>
+        <td>
+          <% if job && delayed_timestamp_size == 1 %>
+            <%= h(job['class']) %>
+          <% else %>
+            <a href="<%= timestamp_path timestamp: timestamp %>">see details</a>
+          <% end %>
+        </td>
+        <td><%= h(job['args'].inspect) if job && delayed_timestamp_size == 1 %></td>
+        <td>
+          <% if job %>
+            <a href="<%= delayed_job_class_path klass: job['class'], args: URI.encode(job['args'].to_json) %>">All schedules</a>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <h2>There are no delayed jobs</h2>
+<% end %>
 
 <% if @total_number_of_delayed_jobs > 0 %>
   <br>
   <form method="POST" action="<%= clear_path %>" class='clear-delayed'>
-    <input type='submit' name='' value='Clear Delayed Jobs' class="btn btn-default"/>
+    <input type='submit' name='' value='Clear All Delayed Jobs' class="btn btn-default"/>
   </form>
 <% end %>
 
