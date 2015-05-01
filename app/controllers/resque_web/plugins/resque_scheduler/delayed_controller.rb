@@ -37,6 +37,8 @@ module ResqueWeb
             @timestamps = Resque.scheduled_at(klass, *@args)
           end
         rescue
+          # Should this be a rescue? Seems to cover the case of the params
+          # not validating or something.
           @timestamps = []
         end
 

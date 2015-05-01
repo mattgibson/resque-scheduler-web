@@ -12,19 +12,13 @@ feature 'seeing all of the timestamps where a class is delayed' do
     and_i_should_see_the_timestamp_on_the_page
   end
 
-  scenario 'viewing the timestamps page with params' do
-    given_there_is_a_delayed_job_with_params
-    when_i_visit_the_delayed_jobs_page
-    and_i_click_on_the_link_to_see_all_the_timestamps_for_that_job
-    then_i_should_be_on_the_delayed_class_page_with_params
-    and_i_should_see_the_timestamp_on_the_page
-  end
-
   scenario 'viewing the timestamps page with activejob' do
     given_there_is_a_delayed_job_with_active_job
     when_i_visit_the_delayed_jobs_page
     and_i_click_on_the_link_to_see_all_the_timestamps_for_that_job
     and_i_should_see_the_timestamp_on_the_page
+    when_i_click_on_the_timestap
+    then_i_should_be_on_the_timestamp_page
   end
 
   def and_i_click_on_the_link_to_see_all_the_timestamps_for_that_job
@@ -51,4 +45,11 @@ feature 'seeing all of the timestamps where a class is delayed' do
     ActiveJobTest.set(wait_until: some_time_in_the_future).perform_later
   end
 
+  def when_i_click_on_the_timestap
+    all('.timestamp-link').first.click
+  end
+
+  def then_i_should_be_on_the_timestamp_page
+    expect(current_path).to eq resque_scheduler_engine_routes.timestamp_path timestamp: some_time_in_the_future.to_i
+  end
 end

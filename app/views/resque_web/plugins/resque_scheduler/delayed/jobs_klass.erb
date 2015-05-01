@@ -9,7 +9,7 @@
   <% @timestamps.each do |t| %>
     <tr>
       <td>
-        <%= Time.at(t) %>
+        <%= link_to Time.at(t), timestamp_path(timestamp: t.to_i), class: 'timestamp-link' %>
       </td>
     </tr>
   <% end %>
