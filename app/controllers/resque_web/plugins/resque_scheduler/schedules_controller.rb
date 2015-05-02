@@ -12,27 +12,18 @@ module ResqueWeb
         # GET /schedule
         def index
           Resque.reload_schedule! if Resque::Scheduler.dynamic
-          jobs_in_this_env = Resque.schedule.select do |name|
-            scheduled_in_this_env?(name)
-          end
-          keys = jobs_in_this_env.keys.sort
-          @scheduled_jobs = keys.inject({}) do |jobs, job_name|
-            jobs.merge(job_name => Resque.schedule[job_name])
-          end
+          @scheduled_jobs = scheduled_jobs_in_alphabetical_order
         end
 
         # DELETE /schedule
         def destroy
-          if Resque::Scheduler.dynamic
-            job_name = params['job_name'] || params[:job_name]
-            Resque.remove_schedule(job_name)
-          end
+          Resque.remove_schedule(params[:job_name]) if Resque::Scheduler.dynamic
           redirect_to Engine.app.url_helpers.schedules_path
         end
 
         # POST /schedule/requeue
         def requeue
-          @job_name = params['job_name'] || params[:job_name]
+          @job_name = params[:job_name]
           config = Resque.schedule[@job_name]
           @parameters = config['parameters'] || config[:parameters]
           if @parameters
@@ -46,20 +37,34 @@ module ResqueWeb
         # POST /schedule/requeue_with_params
         def requeue_with_params
           config = Resque.schedule[params[:job_name]]
-          # Build args hash from post data (removing the job name)
-          submitted_args = params.reject do |key, _value|
+          new_config = original_config_merged_with_submitted_params(config)
+          Resque::Scheduler.enqueue_from_config(new_config)
+          redirect_to ResqueWeb::Engine.app.url_helpers.overview_path
+        end
+
+        protected
+
+        def original_config_merged_with_submitted_params(config)
+          existing_config_args = config['args'] || config[:args] || {}
+          new_config_args = existing_config_args.merge(submitted_params_for_job)
+          config.merge('args' => new_config_args)
+        end
+
+        # Build args hash from post data (removing the job name)
+        def submitted_params_for_job
+          params.reject do |key, _value|
             %w(job_name action controller).include?(key)
           end
+        end
 
-          # Merge constructed args hash with existing args hash for
-          # the job, if it exists
-          existing_config_args = config['args'] || config[:args] || {}
-          new_config_args = existing_config_args.merge(submitted_args)
+        def jobs_in_this_env
+          Resque.schedule.select { |name| scheduled_in_this_env?(name) }
+        end
 
-          # Insert the args hash into config and queue the resque job
-          config = config.merge('args' => new_config_args)
-          Resque::Scheduler.enqueue_from_config(config)
-          redirect_to ResqueWeb::Engine.app.url_helpers.overview_path
+        def scheduled_jobs_in_alphabetical_order
+          jobs_in_this_env.keys.sort.inject({}) do |jobs, job_name|
+            jobs.merge(job_name => Resque.schedule[job_name])
+          end
         end
       end
     end
