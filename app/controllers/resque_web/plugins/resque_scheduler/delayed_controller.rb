@@ -14,7 +14,8 @@ module ResqueWeb
         end
 
         # GET /delayed/jobs/:klass
-        # Shows us all of the jobs of this type, with these args. Accessed by
+        # Shows us all of the timestamps where jobs of this type, with these
+        # args are currently scheduled as delayed jobs. Accessed by
         # clicking the 'All schedules' link next to a delayed job.
         def jobs_klass
           klass = Resque::Scheduler::Util.constantize(params[:klass])
@@ -48,6 +49,7 @@ module ResqueWeb
         end
 
         # POST /delayed/cancel_now
+        # cancels a specific job based on klass, timestamp and args.
         def cancel_now
           klass = Resque::Scheduler::Util.constantize(params['klass'])
           timestamp = params['timestamp']
@@ -63,6 +65,8 @@ module ResqueWeb
         end
 
         # POST /delayed/queue_now
+        # Sends ALL of the delayed jobs at a particular timestamp to the queue,
+        # regardless of their details.
         def queue_now
           timestamp = params['timestamp'].to_i
           if timestamp > 0
