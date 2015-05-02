@@ -1,9 +1,9 @@
-<h1>Delayed jobs scheduled for class: <%= params[:klass] %></h1>
+<h1>Timestamps where delayed jobs are scheduled for class:<br> <%= params[:klass] %></h1>
 <h2>With params: <%= @args %></h2>
 
 <table class='jobs table table-bordered'>
   <tr>
-    <th>Timestamp</th>
+    <th><%= "Timestamp".pluralize(@timestamps.size) %></th>
   </tr>
 
   <% @timestamps.each do |t| %>
