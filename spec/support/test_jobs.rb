@@ -48,6 +48,8 @@ JobWithoutParams = Class.new(JobWithParams) do
   @queue = :quick
 end
 
+# Allows us to test whether jobs added via the ActiveJob wrapper are correctly
+# handled.
 class ActiveJobTest < ActiveJob::Base
   queue_as :test_queue
 
@@ -56,7 +58,6 @@ class ActiveJobTest < ActiveJob::Base
   end
 
   def perform
-
   end
 end
 

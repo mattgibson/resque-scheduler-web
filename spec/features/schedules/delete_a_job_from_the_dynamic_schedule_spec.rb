@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 feature 'deleting a job from the dynamic schedule' do
-
   include SharedFunctionsForFeatures
 
   before do

@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 feature 'Viewing the schedule page and interacting with it' do
-
   include SharedFunctionsForFeatures
 
   before do
@@ -90,5 +89,4 @@ feature 'Viewing the schedule page and interacting with it' do
   def when_i_visit_the_scheduler_page
     visit resque_scheduler_engine_routes.schedules_path
   end
-
 end

@@ -21,19 +21,9 @@ module ResqueWeb
           klass = Resque::Scheduler::Util.constantize(params[:klass])
           @args = params[:args] ? JSON.load(URI.decode(params[:args])) : []
 
-          # ActiveJob hack. The wrapper class does not know what queue the
-          # wrapped class wants to use, so we need to tell Resque Scheduler
-          # the queue, rather than have it use Resque's internal guessing
-          # mechanism.
-          if klass.to_s == 'ActiveJob::QueueAdapters::ResqueAdapter::JobWrapper'
-            queue_name = @args.first['queue_name']
-            hashed_job = Resque.send :job_to_hash_with_queue, queue_name, klass, @args
-            search = Resque.send :encode, hashed_job
-            @timestamps = Resque.instance_eval do
-              redis.smembers("timestamps:#{search}").map do |key|
-                key.tr('delayed:', '').to_i
-              end
-            end
+          if this_is_the_activejob_wrapper(klass)
+            # @timestamps = get_timestamps_for_activejob_wrapper(klass)
+            @timestamps = ActiveJobWrapperTimestampFinder.new(@args).perform
           else
             @timestamps = Resque.scheduled_at(klass, *@args)
           end
@@ -81,6 +71,12 @@ module ResqueWeb
           @start = params[:start].to_i
           @size = Resque.delayed_timestamp_size(@timestamp)
           @jobs = Resque.delayed_timestamp_peek(@timestamp, @start, 20)
+        end
+
+        protected
+
+        def this_is_the_activejob_wrapper(klass)
+          klass.to_s == 'ActiveJob::QueueAdapters::ResqueAdapter::JobWrapper'
         end
       end
     end

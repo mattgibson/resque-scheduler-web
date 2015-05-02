@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 feature 'requeuing a job that has no params' do
-
   include SharedFunctionsForFeatures
 
   before do
@@ -42,6 +41,4 @@ feature 'requeuing a job that has no params' do
   def and_i_requeue_the_job
     click_button "requeue_job_#{job_name}"
   end
-
-
 end

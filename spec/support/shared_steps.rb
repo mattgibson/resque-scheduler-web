@@ -1,5 +1,7 @@
+# This should be mixed in to all of the Rspec feature specs so that we can
+# avoid duplication of common functions and can be sure that Resque and the
+# queues will be reset cleanly after each scenario.
 module SharedFunctionsForFeatures
-
   def self.included(base)
     base.instance_eval do
       let(:some_time_in_the_future) { Time.now + 3600 }
@@ -44,4 +46,3 @@ module SharedFunctionsForFeatures
     expect(page).to have_content job_class
   end
 end
-

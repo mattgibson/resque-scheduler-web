@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 feature 'requeuing a job that has defined params' do
-
   include SharedFunctionsForFeatures
 
   before do

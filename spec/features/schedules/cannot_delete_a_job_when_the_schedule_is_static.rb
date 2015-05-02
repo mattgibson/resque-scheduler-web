@@ -1,6 +1,6 @@
 require 'rails_helper'
-feature 'deleting a job from the dynamic schedule' do
 
+feature 'deleting a job from the dynamic schedule' do
   include SharedFunctionsForFeatures
 
   scenario 'the delete button is not present when the schedule is static' do

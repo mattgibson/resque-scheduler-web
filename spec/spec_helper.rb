@@ -8,7 +8,6 @@ require 'resque-scheduler'
 require_relative 'support/functions'
 require_relative 'support/shared_steps'
 
-
 Resque::Scheduler.configure do |c|
   c.quiet = true
 end
@@ -95,4 +94,3 @@ end
 def resque_scheduler_engine_routes
   ResqueWeb::Plugins::ResqueScheduler::Engine.app.url_helpers
 end
-
