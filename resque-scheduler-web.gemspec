@@ -17,6 +17,7 @@ Gem::Specification.new do |spec|
                        'Resque 1.x'
   spec.homepage      = 'https://github.com/mattgibson/resque-scheduler-web'
   spec.license       = 'MIT'
+  spec.required_ruby_version = '>= 1.9.3'
 
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
