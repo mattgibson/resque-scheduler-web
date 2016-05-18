@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 feature 'seeing all the delayed jobs on the index page' do
-
   include SharedFunctionsForFeatures
 
   scenario 'delayed jobs show up on the page when at different times' do

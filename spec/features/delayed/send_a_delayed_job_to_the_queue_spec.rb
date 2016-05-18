@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 feature 'Sending a delayed job to the queue for immediate execution' do
-
   include SharedFunctionsForFeatures
 
   let(:queue_name) { 'ivar' }

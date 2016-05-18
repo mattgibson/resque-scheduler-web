@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 feature 'cancelling a delayed job' do
-
   include SharedFunctionsForFeatures
 
   scenario 'cancelling the job from the search page' do

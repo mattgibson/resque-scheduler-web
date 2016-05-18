@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 feature 'clearing all of the delayed jobs' do
-
   include SharedFunctionsForFeatures
 
   scenario 'clearing the jobs from the delayed index' do
@@ -20,5 +19,4 @@ feature 'clearing all of the delayed jobs' do
   def and_i_click_the_clear_all_jobs_button
     click_button 'Clear All Delayed Jobs'
   end
-
 end

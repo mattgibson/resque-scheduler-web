@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 feature 'seeing all of the timestamps where a class is delayed' do
-
   include SharedFunctionsForFeatures
 
   scenario 'viewing the timestamps page with no params' do
@@ -26,11 +25,15 @@ feature 'seeing all of the timestamps where a class is delayed' do
   end
 
   def then_i_should_be_on_the_delayed_class_page
-    expect(current_path).to eq resque_scheduler_engine_routes.delayed_job_class_path klass: 'SomeIvarJob'
+    path_params = {klass: 'SomeIvarJob'}
+    path = resque_scheduler_engine_routes.delayed_job_class_path path_params
+    expect(current_path).to eq path
   end
 
   def then_i_should_be_on_the_delayed_class_page_with_params
-    expect(current_path).to eq resque_scheduler_engine_routes.delayed_job_class_path klass: 'JobWithParams'
+    path_params = {klass: 'JobWithParams'}
+    path = resque_scheduler_engine_routes.delayed_job_class_path path_params
+    expect(current_path).to eq path
   end
 
   def and_i_should_see_the_timestamp_on_the_page
@@ -38,7 +41,9 @@ feature 'seeing all of the timestamps where a class is delayed' do
   end
 
   def given_there_is_a_delayed_job_with_params
-    Resque.enqueue_at(some_time_in_the_future, JobWithParams, argument: 'thingy')
+    Resque.enqueue_at(some_time_in_the_future,
+                      JobWithParams,
+                      argument: 'thingy')
   end
 
   def given_there_is_a_delayed_job_with_active_job
@@ -50,6 +55,8 @@ feature 'seeing all of the timestamps where a class is delayed' do
   end
 
   def then_i_should_be_on_the_timestamp_page
-    expect(current_path).to eq resque_scheduler_engine_routes.timestamp_path timestamp: some_time_in_the_future.to_i
+    path_params = { timestamp: some_time_in_the_future.to_i }
+    path = resque_scheduler_engine_routes.timestamp_path path_params
+    expect(current_path).to eq path
   end
 end

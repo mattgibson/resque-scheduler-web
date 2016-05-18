@@ -32,5 +32,4 @@ feature 'the tabs added to the resque web interface work correctly' do
   def then_i_should_be_on_the_delayed_page
     expect(current_path).to eq resque_scheduler_engine_routes.delayed_path
   end
-
 end
