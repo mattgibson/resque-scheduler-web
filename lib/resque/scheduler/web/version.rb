@@ -1,7 +1,7 @@
 module Resque
   module Scheduler
     module Web
-      VERSION = '0.0.4'
+      VERSION = '1.0.0'
     end
   end
 end

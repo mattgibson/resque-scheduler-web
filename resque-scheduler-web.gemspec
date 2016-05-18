@@ -24,10 +24,10 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency 'resque-web', '~> 0'
+  spec.add_runtime_dependency 'resque-web', '~> 0.0.8'
   spec.add_runtime_dependency 'resque-scheduler', '~> 4.0'
 
-  spec.add_development_dependency 'bundler', '~> 1.6'
+  spec.add_development_dependency 'bundler', '~> 1.9'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rails', '~> 4.2'
   spec.add_development_dependency 'sqlite3', '~> 1.3'
@@ -36,7 +36,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'codeclimate-test-reporter', '~> 0'
   spec.add_development_dependency 'rubocop', '~> 0'
   spec.add_development_dependency 'rubocop-rspec', '~> 1.0'
-  spec.add_development_dependency 'launchy', '~> 0'
+  spec.add_development_dependency 'launchy', '~> 2.4'
   # Avoids non-thread-safe error.
   spec.add_development_dependency 'sass', '~> 3.4'
 end
