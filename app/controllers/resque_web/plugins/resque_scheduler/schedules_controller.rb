@@ -24,7 +24,7 @@ module ResqueWeb
         # POST /schedule/requeue
         def requeue
           @job_name = params[:job_name]
-          config = Resque.schedule[@job_name]
+          config = Resque.schedule[@job_name] || Resque.schedule[@job_name.to_sym] 
           @parameters = config['parameters'] || config[:parameters]
           if @parameters
             render 'requeue-params'
