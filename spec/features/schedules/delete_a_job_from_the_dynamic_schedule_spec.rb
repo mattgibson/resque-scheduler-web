@@ -5,7 +5,7 @@ feature 'deleting a job from the dynamic schedule' do
 
   before do
     given_there_are_two_jobs_in_the_scheduler
-    and_the_schedule_is_set_up_to_be_dyamic
+    and_the_schedule_is_set_up_to_be_dynamic
     when_i_visit_the_scheduler_page
   end
 
@@ -27,7 +27,7 @@ feature 'deleting a job from the dynamic schedule' do
     and_the_job_should_no_longer_be_present_in_the_resque_schedule
   end
 
-  def and_the_schedule_is_set_up_to_be_dyamic
+  def and_the_schedule_is_set_up_to_be_dynamic
     allow(Resque::Scheduler).to receive(:dynamic).and_return(true)
   end
 
