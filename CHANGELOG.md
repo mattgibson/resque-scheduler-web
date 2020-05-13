@@ -1,5 +1,23 @@
 # Changelog
 
+# 1.1.1
+* Minor update to bring gem versions up to date and remove security vulnerabilities
+* Fix showing delayed jobs (via InJung Chung)
+
+# 1.1.0
+* Require Ruby 2.2
+* Update Travis config
+
+# 1.0.1
+* No changes. Not sure why this happened.
+
+# 1.0.0
+* Fix NameError: undefined local variable or method 'current_page' (via David Gudge)
+* Various refactorings
+* Specify Ruby version
+* Update README with better description
+* Update gem dependencies
+
 ## 0.0.4
 * More Rspec feature specs. All main functionality is now covered with 
 integration tests.
